@@ -4,13 +4,17 @@
     "description": "The Banking API provides a comprehensive set of endpoints for managing and accessing various banking services. ",
     "main": "src/app.js",
     "scripts": {
-        "dev": "nodemon app.js",
-        "test": "jest --detectOpenHandles"
+        "dev": "nodemon app.js && npm run sentry:sourcemaps",
+        "test": "jest --detectOpenHandles",
+        "sentry:sourcemaps": "sentry-cli sourcemaps inject --org mike-15 --project banking ../../../.. && sentry-cli sourcemaps upload --org mike-15 --project banking ../../../.."
     },
     "author": "lazyaff",
     "license": "ISC",
     "dependencies": {
         "@prisma/client": "^5.16.2",
+        "@sentry/cli": "^2.34.1",
+        "@sentry/node": "^8.28.0",
+        "@sentry/profiling-node": "^8.28.0",
         "bcrypt": "^5.1.1",
         "cookie-parser": "^1.4.6",
         "dotenv": "^16.4.5",

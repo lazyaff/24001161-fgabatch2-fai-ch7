@@ -146,7 +146,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Data\\Project\\Express\\banking\\prisma\\client",
+      "value": "C:\\Data\\Latihan\\Binar\\ch7\\prisma\\client",
       "fromEnvVar": null
     },
     "config": {
@@ -160,7 +160,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Data\\Project\\Express\\banking\\prisma\\schema.prisma",
+    "sourceFilePath": "C:\\Data\\Latihan\\Binar\\ch7\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -174,6 +174,7 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": true,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -182,8 +183,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"./client\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel users {\n  id       Int             @id @default(autoincrement())\n  name     String\n  email    String          @unique\n  password String\n  profile  profiles?\n  accounts bank_accounts[]\n}\n\nmodel profiles {\n  id              Int    @id @default(autoincrement())\n  user            users  @relation(fields: [user_id], references: [id])\n  user_id         Int    @unique\n  identity_type   String\n  identity_number String\n  address         String\n}\n\nmodel bank_accounts {\n  id                  Int            @id @default(autoincrement())\n  user                users          @relation(fields: [user_id], references: [id])\n  user_id             Int\n  bank_name           String\n  bank_account_number String         @unique\n  balance             Float\n  transactions_from   transactions[] @relation(\"fromAccount\")\n  transactions_to     transactions[] @relation(\"toAccount\")\n}\n\nmodel transactions {\n  id                     Int           @id @default(autoincrement())\n  source_account         bank_accounts @relation(\"fromAccount\", fields: [source_account_id], references: [id])\n  source_account_id      Int\n  destination_account    bank_accounts @relation(\"toAccount\", fields: [destination_account_id], references: [id])\n  destination_account_id Int\n  amount                 Float\n}\n",
-  "inlineSchemaHash": "11fd6ca2c6d0ea997b354fd6789822036c2f60bb6b3dfcb08c367c38e66acb2f",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"./client\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel users {\n  id       Int             @id @default(autoincrement())\n  name     String\n  email    String          @unique\n  password String\n  profile  profiles?\n  accounts bank_accounts[]\n}\n\nmodel profiles {\n  id              Int    @id @default(autoincrement())\n  user            users  @relation(fields: [user_id], references: [id])\n  user_id         Int    @unique\n  identity_type   String\n  identity_number String\n  address         String\n}\n\nmodel bank_accounts {\n  id                  Int            @id @default(autoincrement())\n  user                users          @relation(fields: [user_id], references: [id])\n  user_id             Int\n  bank_name           String\n  bank_account_number String         @unique\n  balance             Float\n  transactions_from   transactions[] @relation(\"fromAccount\")\n  transactions_to     transactions[] @relation(\"toAccount\")\n}\n\nmodel transactions {\n  id                     Int           @id @default(autoincrement())\n  source_account         bank_accounts @relation(\"fromAccount\", fields: [source_account_id], references: [id])\n  source_account_id      Int\n  destination_account    bank_accounts @relation(\"toAccount\", fields: [destination_account_id], references: [id])\n  destination_account_id Int\n  amount                 Float\n}\n",
+  "inlineSchemaHash": "c18f6e120b4914d6fe83dcdef173ddb05590fdbe7368bf946d779e97569621c0",
   "copyEngine": true
 }
 

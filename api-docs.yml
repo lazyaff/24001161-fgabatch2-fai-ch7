@@ -1,0 +1,244 @@
+openapi: 3.0.0
+info:
+    title: Banking API
+    version: "1.0.0"
+    description: "The Banking API provides a comprehensive set of endpoints for managing and accessing various banking services. "
+paths:
+    /api/v1/users:
+        get:
+            summary: Get All Users
+            operationId: getAllUsers
+            tags: [Users]
+            responses:
+                "200":
+                    description: A list of users
+                    content:
+                        application/json:
+                            example:
+                                success: true
+                                message: Users fetched successfully
+                                data:
+                                    - id: 1
+                                      name: john
+                                      email: john@gmail.com
+                                    - id: 2
+                                      name: doe
+                                      email: doe@gmail.com
+        post:
+            summary: Create User
+            operationId: createUser
+            tags: [Users]
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        example:
+                            name: doe
+                            email: doejohn1@gmail.com
+                            password: Admin#1234
+                            address: washington
+                            identity_number: "45232"
+                            identity_type: id
+            responses:
+                "201":
+                    description: User created successfully
+                    content:
+                        application/json:
+                            example:
+                                success: true
+                                message: User created successfully
+                                data:
+                                    user:
+                                        id: 7
+                                        name: doe
+                                        email: doejohn1@gmail.com
+                                    profile:
+                                        id: 4
+                                        user_id: 7
+                                        identity_type: id
+                                        identity_number: "45232"
+                                        address: washington
+
+    /api/v1/users/{id}:
+        get:
+            summary: Get User
+            operationId: getUser
+            tags: [Users]
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                      type: integer
+            responses:
+                "200":
+                    description: User details
+                    content:
+                        application/json:
+                            example:
+                                success: true
+                                message: User fetched successfully
+                                data:
+                                    id: 2
+                                    name: doe
+                                    email: doe@gmail.com
+                                    profile:
+                                        address: washington
+                                        identity_number: "45232"
+                                        identity_type: id
+    /api/v1/accounts:
+        get:
+            summary: Get All Accounts
+            operationId: getAllAccounts
+            tags: [Accounts]
+            responses:
+                "200":
+                    description: A list of accounts
+                    content:
+                        application/json:
+                            example:
+                                success: true
+                                message: Accounts fetched successfully
+                                data:
+                                    - id: 1
+                                      user_id: 2
+                                      bank_name: BNI
+                                      bank_account_number: "65546354"
+                                      balance: 15000
+                                    - id: 3
+                                      user_id: 1
+                                      bank_name: BRI
+                                      bank_account_number: "0000452345423"
+                                      balance: 85000
+        post:
+            summary: Create Account
+            operationId: createAccount
+            tags: [Accounts]
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        example:
+                            bank_name: BRI
+                            bank_account_number: "00004523453423"
+                            balance: "100000"
+                            user_id: 1
+            responses:
+                "201":
+                    description: Account created successfully
+                    content:
+                        application/json:
+                            example:
+                                success: true
+                                message: Account created successfully
+                                data:
+                                    id: 4
+                                    user_id: 1
+                                    bank_name: BRI
+                                    bank_account_number: "00004523453423"
+                                    balance: 100000
+    /api/v1/accounts/{id}:
+        get:
+            summary: Get Account
+            operationId: getAccount
+            tags: [Accounts]
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                      type: integer
+            responses:
+                "200":
+                    description: Account details
+                    content:
+                        application/json:
+                            example:
+                                success: true
+                                message: Acoount fetched successfully
+                                data:
+                                    id: 1
+                                    bank_name: BNI
+                                    bank_account_number: "65546354"
+                                    balance: 15000
+                                    user:
+                                        id: 2
+                                        name: doe
+                                        email: doe@gmail.com
+    /api/v1/transactions:
+        get:
+            summary: Get All Transactions
+            operationId: getAllTransactions
+            tags: [Transactions]
+            responses:
+                "200":
+                    description: A list of transactions
+                    content:
+                        application/json:
+                            example:
+                                success: true
+                                message: Transactions fetched successfully
+                                data:
+                                    - id: 3
+                                      source_account_id: 3
+                                      destination_account_id: 1
+                                      amount: 10000
+                                    - id: 4
+                                      source_account_id: 3
+                                      destination_account_id: 1
+                                      amount: 10000
+        post:
+            summary: Create Transaction
+            operationId: createTransaction
+            tags: [Transactions]
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        example:
+                            source_account_id: 1
+                            destination_account_id: 3
+                            amount: "5000"
+            responses:
+                "201":
+                    description: Transaction created successfully
+                    content:
+                        application/json:
+                            example:
+                                success: true
+                                message: Transaction created successfully
+                                data:
+                                    id: 6
+                                    source_account_id: 1
+                                    destination_account_id: 3
+                                    amount: 5000
+    /api/v1/transactions/{id}:
+        get:
+            summary: Get Transaction
+            operationId: getTransaction
+            tags: [Transactions]
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                      type: integer
+            responses:
+                "200":
+                    description: Transaction details
+                    content:
+                        application/json:
+                            example:
+                                success: true
+                                message: Transaction fetched successfully
+                                data:
+                                    id: 3
+                                    amount: 10000
+                                    source_account:
+                                        id: 3
+                                        bank_name: BRI
+                                        bank_account_number: "0000452345423"
+                                    destination_account:
+                                        id: 1
+                                        bank_name: BNI
+                                        bank_account_number: "65546354"

@@ -1,0 +1,156 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "Banking API",
+    "collectionId": "b7a1c32b-2bba-492f-8735-f90c6ced85c7",
+    "dateExported": "2024-07-31T12:52:42.555Z",
+    "version": "1.2",
+    "folders": [
+        {
+            "_id": "265ebd10-9a79-4770-93b7-0a2c347aca4c",
+            "name": "Users",
+            "containerId": "",
+            "created": "2024-07-17T01:33:00.575Z",
+            "sortNum": 10000
+        },
+        {
+            "_id": "eae44565-2edf-4117-99da-56a4e1d1d739",
+            "name": "Accounts",
+            "containerId": "",
+            "created": "2024-07-18T12:32:09.656Z",
+            "sortNum": 20000
+        },
+        {
+            "_id": "0d00eeba-226d-49c3-b8b9-68f5a3d3d23a",
+            "name": "Transactions",
+            "containerId": "",
+            "created": "2024-07-18T13:16:32.015Z",
+            "sortNum": 30000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "1b184c07-a06d-427b-a6ae-51cd7e332d7a",
+            "colId": "b7a1c32b-2bba-492f-8735-f90c6ced85c7",
+            "containerId": "265ebd10-9a79-4770-93b7-0a2c347aca4c",
+            "name": "Get All User",
+            "url": "http://localhost:3000/api/v1/users",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2024-07-17T01:33:11.549Z",
+            "modified": "2024-07-17T01:33:25.162Z",
+            "headers": []
+        },
+        {
+            "_id": "b6fe85f4-62c5-4085-9b81-de3c172611b6",
+            "colId": "b7a1c32b-2bba-492f-8735-f90c6ced85c7",
+            "containerId": "eae44565-2edf-4117-99da-56a4e1d1d739",
+            "name": "Get All Accounts",
+            "url": "http://localhost:3000/api/v1/accounts",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2024-07-18T12:32:09.656Z",
+            "modified": "2024-07-18T12:32:40.058Z",
+            "headers": []
+        },
+        {
+            "_id": "d3835929-91c9-495d-bd76-efea112be749",
+            "colId": "b7a1c32b-2bba-492f-8735-f90c6ced85c7",
+            "containerId": "0d00eeba-226d-49c3-b8b9-68f5a3d3d23a",
+            "name": "Get All Transactions",
+            "url": "http://localhost:3000/api/v1/transactions",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2024-07-18T13:16:32.015Z",
+            "modified": "2024-07-18T13:17:16.353Z",
+            "headers": []
+        },
+        {
+            "_id": "c245fd05-c72c-46fd-b0c5-3357c0e3671b",
+            "colId": "b7a1c32b-2bba-492f-8735-f90c6ced85c7",
+            "containerId": "265ebd10-9a79-4770-93b7-0a2c347aca4c",
+            "name": "Get User",
+            "url": "http://localhost:3000/api/v1/users/2",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2024-07-17T01:48:28.824Z",
+            "modified": "2024-07-18T12:14:41.371Z",
+            "headers": []
+        },
+        {
+            "_id": "16c6a1a8-b488-4a30-8290-f957a7a3cc28",
+            "colId": "b7a1c32b-2bba-492f-8735-f90c6ced85c7",
+            "containerId": "265ebd10-9a79-4770-93b7-0a2c347aca4c",
+            "name": "Create User",
+            "url": "http://localhost:3000/api/v1/users",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2024-07-18T11:54:51.093Z",
+            "modified": "2024-07-29T14:01:13.621Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"doe\",\n  \"email\": \"doejohn@gmail.com\",\n  \"password\": \"Admin#1234\",\n  \"address\": \"washington\",\n  \"identity_number\": \"45232\",\n  \"identity_type\": \"id\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "c8a7ee4f-97f3-40b8-a850-fb763b1eabc6",
+            "colId": "b7a1c32b-2bba-492f-8735-f90c6ced85c7",
+            "containerId": "eae44565-2edf-4117-99da-56a4e1d1d739",
+            "name": "Get Account",
+            "url": "http://localhost:3000/api/v1/accounts/1",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2024-07-18T12:32:09.657Z",
+            "modified": "2024-07-18T13:02:05.836Z",
+            "headers": []
+        },
+        {
+            "_id": "f2539bdb-26e9-4f53-a40c-97f728932507",
+            "colId": "b7a1c32b-2bba-492f-8735-f90c6ced85c7",
+            "containerId": "eae44565-2edf-4117-99da-56a4e1d1d739",
+            "name": "Create Account",
+            "url": "http://localhost:3000/api/v1/accounts",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2024-07-18T12:32:09.658Z",
+            "modified": "2024-07-18T13:00:10.413Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"bank_name\": \"BRI\",\n  \"bank_account_number\": \"0000452345423\",\n  \"balance\": \"100000\",\n  \"user_id\": 1\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "2e3e29aa-a4d5-4d1f-8381-048a560b898e",
+            "colId": "b7a1c32b-2bba-492f-8735-f90c6ced85c7",
+            "containerId": "0d00eeba-226d-49c3-b8b9-68f5a3d3d23a",
+            "name": "Get Transaction",
+            "url": "http://localhost:3000/api/v1/transactions/3",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2024-07-18T13:16:32.016Z",
+            "modified": "2024-07-18T13:35:29.064Z",
+            "headers": []
+        },
+        {
+            "_id": "0071bca9-ff18-4094-9767-ac09ff3c0dc2",
+            "colId": "b7a1c32b-2bba-492f-8735-f90c6ced85c7",
+            "containerId": "0d00eeba-226d-49c3-b8b9-68f5a3d3d23a",
+            "name": "Create Transaction",
+            "url": "http://localhost:3000/api/v1/transactions",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2024-07-18T13:16:32.017Z",
+            "modified": "2024-07-18T13:35:07.778Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"source_account_id\": 1,\n  \"destination_account_id\": 3,\n  \"amount\": \"5000\"\n}",
+                "form": []
+            }
+        }
+    ],
+    "ref": "o4EJwx0PmBtkyUsFg_Icw7HHKLZf8HHxRraRqob5s8X710fhoumd05R7b5l8xLagC3Tdcd4Ur9iQL6lTe53Law"
+}

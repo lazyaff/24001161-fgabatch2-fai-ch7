@@ -78,6 +78,8 @@ const setToken = (user, res) => {
     res.cookie("token", token, {
         httpOnly: true,
     });
+
+    return token;
 };
 
 // clear JSON web token

@@ -20,11 +20,12 @@ const login = async (req, res) => {
             });
         }
 
-        service.setToken(data.user, res);
+        const token = service.setToken(data.user, res);
         return res.json({
             success: true,
             message: "User logged in successfully",
             is_need_otp: data.is_need_otp,
+            token,
         });
     } catch (error) {
         console.log(error);

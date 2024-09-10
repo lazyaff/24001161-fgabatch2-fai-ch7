@@ -1,5 +1,6 @@
 import { Layout, Typography, Button, message } from "antd";
-// import { useEffect } from "react";
+import { useEffect } from "react";
+import NotificationComponent from "../components/Notification";
 
 const { Header, Content, Footer } = Layout;
 const { Title } = Typography;
@@ -18,6 +19,7 @@ const Dashboard = () => {
             );
             const result = await response.json();
             if (result.success) {
+                localStorage.removeItem("token");
                 message.success("You have been logged out successfully.");
                 setTimeout(() => {
                     window.location.href = "/login";
@@ -31,28 +33,12 @@ const Dashboard = () => {
         }
     };
 
-    // useEffect(() => {
-    //     const checkToken = async () => {
-    //         try {
-    //             const response = await fetch(
-    //                 "http://localhost:3000/api/v1/auth/check-token",
-    //                 {
-    //                     method: "GET",
-    //                     headers: {
-    //                         "Content-Type": "application/json",
-    //                     },
-    //                 }
-    //             );
-    //             const data = await response.json();
-    //             if (!data.success) {
-    //                 window.location.href = "/login";
-    //             }
-    //         } catch (error) {
-    //             console.log(error);
-    //         }
-    //     };
-    //     checkToken();
-    // }, []);
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            window.location.href = "/login";
+        }
+    }, []);
 
     return (
         <Layout style={{ minHeight: "100vh" }}>
@@ -76,7 +62,8 @@ const Dashboard = () => {
 
             {/* Content */}
             <Content style={{ padding: "50px", textAlign: "center" }}>
-                <Title level={2}>Welcome to Your Profile</Title>
+                <Title level={2}>Notification</Title>
+                <NotificationComponent />
             </Content>
 
             {/* Footer */}

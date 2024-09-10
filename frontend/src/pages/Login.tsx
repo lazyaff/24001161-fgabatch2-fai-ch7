@@ -48,6 +48,7 @@ function Login() {
                     setIsOtpOpen(true);
                 } else {
                     message.success("Login successful!");
+                    localStorage.setItem("token", data.token);
                     setTimeout(() => {
                         window.location.href = "/";
                     }, 1000);

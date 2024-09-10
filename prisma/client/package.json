@@ -1,5 +1,5 @@
 {
-  "name": "prisma-client-73ca734726b3f41d08cf181f6408f408f3cc340668e9b01a853d3da63baed3c3",
+  "name": "prisma-client-6f8d07101d5f3f4337bf75660e1eef3424925eca168856f5da7c940f2c8cc6e9",
   "main": "index.js",
   "types": "index.d.ts",
   "browser": "index-browser.js",
@@ -77,21 +77,8 @@
       "import": "./generator-build/index.js",
       "default": "./generator-build/index.js"
     },
-    "./sql": {
-      "require": {
-        "types": "./sql.d.ts",
-        "node": "./sql.js",
-        "default": "./sql.js"
-      },
-      "import": {
-        "types": "./sql.d.ts",
-        "node": "./sql.mjs",
-        "default": "./sql.mjs"
-      },
-      "default": "./sql.js"
-    },
     "./*": "./*"
   },
-  "version": "5.19.1",
+  "version": "5.16.2",
   "sideEffects": false
 }

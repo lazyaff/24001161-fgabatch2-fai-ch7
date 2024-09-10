@@ -141,7 +141,6 @@ export class PrismaClient<
    */
   $queryRawUnsafe<T = unknown>(query: string, ...values: any[]): Prisma.PrismaPromise<T>;
 
-
   /**
    * Allows the running of a sequence of read/write operations that are guaranteed to either succeed or fail as a whole.
    * @example
@@ -268,8 +267,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 5.19.1
-   * Query Engine version: 69d742ee20b815d88e17e54db4a2a7a3b30324e3
+   * Prisma Client JS version: 5.16.2
+   * Query Engine version: 34ace0eb2704183d2c05b60b52fba5c43c13f303
    */
   export type PrismaVersion = {
     client: string
@@ -281,13 +280,51 @@ export namespace Prisma {
    * Utility Types
    */
 
+  /**
+   * From https://github.com/sindresorhus/type-fest/
+   * Matches a JSON object.
+   * This type can be useful to enforce some input to be JSON-compatible or as a super-type to be extended from. 
+   */
+  export type JsonObject = {[Key in string]?: JsonValue}
 
-  export import JsonObject = runtime.JsonObject
-  export import JsonArray = runtime.JsonArray
-  export import JsonValue = runtime.JsonValue
-  export import InputJsonObject = runtime.InputJsonObject
-  export import InputJsonArray = runtime.InputJsonArray
-  export import InputJsonValue = runtime.InputJsonValue
+  /**
+   * From https://github.com/sindresorhus/type-fest/
+   * Matches a JSON array.
+   */
+  export interface JsonArray extends Array<JsonValue> {}
+
+  /**
+   * From https://github.com/sindresorhus/type-fest/
+   * Matches any valid JSON value.
+   */
+  export type JsonValue = string | number | boolean | JsonObject | JsonArray | null
+
+  /**
+   * Matches a JSON object.
+   * Unlike `JsonObject`, this type allows undefined and read-only properties.
+   */
+  export type InputJsonObject = {readonly [Key in string]?: InputJsonValue | null}
+
+  /**
+   * Matches a JSON array.
+   * Unlike `JsonArray`, readonly arrays are assignable to this type.
+   */
+  export interface InputJsonArray extends ReadonlyArray<InputJsonValue | null> {}
+
+  /**
+   * Matches any valid value that can be used as an input for operations like
+   * create and update as the value of a JSON field. Unlike `JsonValue`, this
+   * type allows read-only arrays and read-only object properties and disallows
+   * `null` at the top level.
+   *
+   * `null` cannot be used as the value of a JSON field because its meaning
+   * would be ambiguous. Use `Prisma.JsonNull` to store the JSON null value or
+   * `Prisma.DbNull` to clear the JSON value and set the field to the database
+   * NULL value instead.
+   *
+   * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-by-null-values
+   */
+  export type InputJsonValue = string | number | boolean | InputJsonObject | InputJsonArray | { toJSON(): unknown }
 
   /**
    * Types of the values used to represent different kinds of `null` values when working with JSON fields.
@@ -1029,20 +1066,20 @@ export namespace Prisma {
     other: {
       payload: any
       operations: {
-        $executeRaw: {
-          args: [query: TemplateStringsArray | Prisma.Sql, ...values: any[]],
-          result: any
-        }
         $executeRawUnsafe: {
           args: [query: string, ...values: any[]],
           result: any
         }
-        $queryRaw: {
+        $executeRaw: {
           args: [query: TemplateStringsArray | Prisma.Sql, ...values: any[]],
           result: any
         }
         $queryRawUnsafe: {
           args: [query: string, ...values: any[]],
+          result: any
+        }
+        $queryRaw: {
+          args: [query: TemplateStringsArray | Prisma.Sql, ...values: any[]],
           result: any
         }
       }
@@ -1280,6 +1317,7 @@ export namespace Prisma {
     email: string | null
     password: string | null
     otp: string | null
+    pass_token: string | null
     socket_id: string | null
     user_agent: string | null
   }
@@ -1290,6 +1328,7 @@ export namespace Prisma {
     email: string | null
     password: string | null
     otp: string | null
+    pass_token: string | null
     socket_id: string | null
     user_agent: string | null
   }
@@ -1300,6 +1339,7 @@ export namespace Prisma {
     email: number
     password: number
     otp: number
+    pass_token: number
     socket_id: number
     user_agent: number
     _all: number
@@ -1312,6 +1352,7 @@ export namespace Prisma {
     email?: true
     password?: true
     otp?: true
+    pass_token?: true
     socket_id?: true
     user_agent?: true
   }
@@ -1322,6 +1363,7 @@ export namespace Prisma {
     email?: true
     password?: true
     otp?: true
+    pass_token?: true
     socket_id?: true
     user_agent?: true
   }
@@ -1332,6 +1374,7 @@ export namespace Prisma {
     email?: true
     password?: true
     otp?: true
+    pass_token?: true
     socket_id?: true
     user_agent?: true
     _all?: true
@@ -1415,6 +1458,7 @@ export namespace Prisma {
     email: string
     password: string
     otp: string | null
+    pass_token: string | null
     socket_id: string | null
     user_agent: string | null
     _count: UsersCountAggregateOutputType | null
@@ -1442,6 +1486,7 @@ export namespace Prisma {
     email?: boolean
     password?: boolean
     otp?: boolean
+    pass_token?: boolean
     socket_id?: boolean
     user_agent?: boolean
     profile?: boolean | users$profileArgs<ExtArgs>
@@ -1456,6 +1501,7 @@ export namespace Prisma {
     email?: boolean
     password?: boolean
     otp?: boolean
+    pass_token?: boolean
     socket_id?: boolean
     user_agent?: boolean
   }, ExtArgs["result"]["users"]>
@@ -1466,6 +1512,7 @@ export namespace Prisma {
     email?: boolean
     password?: boolean
     otp?: boolean
+    pass_token?: boolean
     socket_id?: boolean
     user_agent?: boolean
   }
@@ -1491,6 +1538,7 @@ export namespace Prisma {
       email: string
       password: string
       otp: string | null
+      pass_token: string | null
       socket_id: string | null
       user_agent: string | null
     }, ExtArgs["result"]["users"]>
@@ -1894,6 +1942,7 @@ export namespace Prisma {
     readonly email: FieldRef<"users", 'String'>
     readonly password: FieldRef<"users", 'String'>
     readonly otp: FieldRef<"users", 'String'>
+    readonly pass_token: FieldRef<"users", 'String'>
     readonly socket_id: FieldRef<"users", 'String'>
     readonly user_agent: FieldRef<"users", 'String'>
   }
@@ -6155,6 +6204,7 @@ export namespace Prisma {
     email: 'email',
     password: 'password',
     otp: 'otp',
+    pass_token: 'pass_token',
     socket_id: 'socket_id',
     user_agent: 'user_agent'
   };
@@ -6303,6 +6353,7 @@ export namespace Prisma {
     email?: StringFilter<"users"> | string
     password?: StringFilter<"users"> | string
     otp?: StringNullableFilter<"users"> | string | null
+    pass_token?: StringNullableFilter<"users"> | string | null
     socket_id?: StringNullableFilter<"users"> | string | null
     user_agent?: StringNullableFilter<"users"> | string | null
     profile?: XOR<ProfilesNullableRelationFilter, profilesWhereInput> | null
@@ -6316,6 +6367,7 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     otp?: SortOrderInput | SortOrder
+    pass_token?: SortOrderInput | SortOrder
     socket_id?: SortOrderInput | SortOrder
     user_agent?: SortOrderInput | SortOrder
     profile?: profilesOrderByWithRelationInput
@@ -6332,6 +6384,7 @@ export namespace Prisma {
     name?: StringFilter<"users"> | string
     password?: StringFilter<"users"> | string
     otp?: StringNullableFilter<"users"> | string | null
+    pass_token?: StringNullableFilter<"users"> | string | null
     socket_id?: StringNullableFilter<"users"> | string | null
     user_agent?: StringNullableFilter<"users"> | string | null
     profile?: XOR<ProfilesNullableRelationFilter, profilesWhereInput> | null
@@ -6345,6 +6398,7 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     otp?: SortOrderInput | SortOrder
+    pass_token?: SortOrderInput | SortOrder
     socket_id?: SortOrderInput | SortOrder
     user_agent?: SortOrderInput | SortOrder
     _count?: usersCountOrderByAggregateInput
@@ -6361,6 +6415,7 @@ export namespace Prisma {
     email?: StringWithAggregatesFilter<"users"> | string
     password?: StringWithAggregatesFilter<"users"> | string
     otp?: StringNullableWithAggregatesFilter<"users"> | string | null
+    pass_token?: StringNullableWithAggregatesFilter<"users"> | string | null
     socket_id?: StringNullableWithAggregatesFilter<"users"> | string | null
     user_agent?: StringNullableWithAggregatesFilter<"users"> | string | null
   }
@@ -6604,6 +6659,7 @@ export namespace Prisma {
     email: string
     password: string
     otp?: string | null
+    pass_token?: string | null
     socket_id?: string | null
     user_agent?: string | null
     profile?: profilesCreateNestedOneWithoutUserInput
@@ -6617,6 +6673,7 @@ export namespace Prisma {
     email: string
     password: string
     otp?: string | null
+    pass_token?: string | null
     socket_id?: string | null
     user_agent?: string | null
     profile?: profilesUncheckedCreateNestedOneWithoutUserInput
@@ -6630,6 +6687,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     otp?: NullableStringFieldUpdateOperationsInput | string | null
+    pass_token?: NullableStringFieldUpdateOperationsInput | string | null
     socket_id?: NullableStringFieldUpdateOperationsInput | string | null
     user_agent?: NullableStringFieldUpdateOperationsInput | string | null
     profile?: profilesUpdateOneWithoutUserNestedInput
@@ -6643,6 +6701,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     otp?: NullableStringFieldUpdateOperationsInput | string | null
+    pass_token?: NullableStringFieldUpdateOperationsInput | string | null
     socket_id?: NullableStringFieldUpdateOperationsInput | string | null
     user_agent?: NullableStringFieldUpdateOperationsInput | string | null
     profile?: profilesUncheckedUpdateOneWithoutUserNestedInput
@@ -6656,6 +6715,7 @@ export namespace Prisma {
     email: string
     password: string
     otp?: string | null
+    pass_token?: string | null
     socket_id?: string | null
     user_agent?: string | null
   }
@@ -6666,6 +6726,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     otp?: NullableStringFieldUpdateOperationsInput | string | null
+    pass_token?: NullableStringFieldUpdateOperationsInput | string | null
     socket_id?: NullableStringFieldUpdateOperationsInput | string | null
     user_agent?: NullableStringFieldUpdateOperationsInput | string | null
   }
@@ -6676,6 +6737,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     otp?: NullableStringFieldUpdateOperationsInput | string | null
+    pass_token?: NullableStringFieldUpdateOperationsInput | string | null
     socket_id?: NullableStringFieldUpdateOperationsInput | string | null
     user_agent?: NullableStringFieldUpdateOperationsInput | string | null
   }
@@ -6973,6 +7035,7 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     otp?: SortOrder
+    pass_token?: SortOrder
     socket_id?: SortOrder
     user_agent?: SortOrder
   }
@@ -6983,6 +7046,7 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     otp?: SortOrder
+    pass_token?: SortOrder
     socket_id?: SortOrder
     user_agent?: SortOrder
   }
@@ -6993,6 +7057,7 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     otp?: SortOrder
+    pass_token?: SortOrder
     socket_id?: SortOrder
     user_agent?: SortOrder
   }
@@ -7802,6 +7867,7 @@ export namespace Prisma {
     email: string
     password: string
     otp?: string | null
+    pass_token?: string | null
     socket_id?: string | null
     user_agent?: string | null
     accounts?: bank_accountsCreateNestedManyWithoutUserInput
@@ -7814,6 +7880,7 @@ export namespace Prisma {
     email: string
     password: string
     otp?: string | null
+    pass_token?: string | null
     socket_id?: string | null
     user_agent?: string | null
     accounts?: bank_accountsUncheckedCreateNestedManyWithoutUserInput
@@ -7842,6 +7909,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     otp?: NullableStringFieldUpdateOperationsInput | string | null
+    pass_token?: NullableStringFieldUpdateOperationsInput | string | null
     socket_id?: NullableStringFieldUpdateOperationsInput | string | null
     user_agent?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: bank_accountsUpdateManyWithoutUserNestedInput
@@ -7854,6 +7922,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     otp?: NullableStringFieldUpdateOperationsInput | string | null
+    pass_token?: NullableStringFieldUpdateOperationsInput | string | null
     socket_id?: NullableStringFieldUpdateOperationsInput | string | null
     user_agent?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: bank_accountsUncheckedUpdateManyWithoutUserNestedInput
@@ -7866,6 +7935,7 @@ export namespace Prisma {
     email: string
     password: string
     otp?: string | null
+    pass_token?: string | null
     socket_id?: string | null
     user_agent?: string | null
     profile?: profilesCreateNestedOneWithoutUserInput
@@ -7878,6 +7948,7 @@ export namespace Prisma {
     email: string
     password: string
     otp?: string | null
+    pass_token?: string | null
     socket_id?: string | null
     user_agent?: string | null
     profile?: profilesUncheckedCreateNestedOneWithoutUserInput
@@ -7950,6 +8021,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     otp?: NullableStringFieldUpdateOperationsInput | string | null
+    pass_token?: NullableStringFieldUpdateOperationsInput | string | null
     socket_id?: NullableStringFieldUpdateOperationsInput | string | null
     user_agent?: NullableStringFieldUpdateOperationsInput | string | null
     profile?: profilesUpdateOneWithoutUserNestedInput
@@ -7962,6 +8034,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     otp?: NullableStringFieldUpdateOperationsInput | string | null
+    pass_token?: NullableStringFieldUpdateOperationsInput | string | null
     socket_id?: NullableStringFieldUpdateOperationsInput | string | null
     user_agent?: NullableStringFieldUpdateOperationsInput | string | null
     profile?: profilesUncheckedUpdateOneWithoutUserNestedInput
@@ -8120,6 +8193,7 @@ export namespace Prisma {
     email: string
     password: string
     otp?: string | null
+    pass_token?: string | null
     socket_id?: string | null
     user_agent?: string | null
     profile?: profilesCreateNestedOneWithoutUserInput
@@ -8132,6 +8206,7 @@ export namespace Prisma {
     email: string
     password: string
     otp?: string | null
+    pass_token?: string | null
     socket_id?: string | null
     user_agent?: string | null
     profile?: profilesUncheckedCreateNestedOneWithoutUserInput
@@ -8160,6 +8235,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     otp?: NullableStringFieldUpdateOperationsInput | string | null
+    pass_token?: NullableStringFieldUpdateOperationsInput | string | null
     socket_id?: NullableStringFieldUpdateOperationsInput | string | null
     user_agent?: NullableStringFieldUpdateOperationsInput | string | null
     profile?: profilesUpdateOneWithoutUserNestedInput
@@ -8172,6 +8248,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     otp?: NullableStringFieldUpdateOperationsInput | string | null
+    pass_token?: NullableStringFieldUpdateOperationsInput | string | null
     socket_id?: NullableStringFieldUpdateOperationsInput | string | null
     user_agent?: NullableStringFieldUpdateOperationsInput | string | null
     profile?: profilesUncheckedUpdateOneWithoutUserNestedInput

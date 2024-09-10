@@ -14,6 +14,7 @@ model users {
   email    String         @unique
   password String
   otp       String?
+  pass_token String?
   socket_id String?
   user_agent String?
   profile  profiles?

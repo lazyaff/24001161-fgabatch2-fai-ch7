@@ -6,7 +6,7 @@ const {
   objectEnumValues,
   makeStrictEnum,
   Public,
-  getRuntime,
+  getRuntime
 } = require('./runtime/index-browser.js')
 
 
@@ -16,12 +16,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 5.16.2
- * Query Engine version: 34ace0eb2704183d2c05b60b52fba5c43c13f303
+ * Prisma Client JS version: 5.19.1
+ * Query Engine version: 69d742ee20b815d88e17e54db4a2a7a3b30324e3
  */
 Prisma.prismaVersion = {
-  client: "5.16.2",
-  engine: "34ace0eb2704183d2c05b60b52fba5c43c13f303"
+  client: "5.19.1",
+  engine: "69d742ee20b815d88e17e54db4a2a7a3b30324e3"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -123,7 +123,10 @@ exports.Prisma.UsersScalarFieldEnum = {
   id: 'id',
   name: 'name',
   email: 'email',
-  password: 'password'
+  password: 'password',
+  otp: 'otp',
+  socket_id: 'socket_id',
+  user_agent: 'user_agent'
 };
 
 exports.Prisma.ProfilesScalarFieldEnum = {
@@ -149,6 +152,15 @@ exports.Prisma.TransactionsScalarFieldEnum = {
   amount: 'amount'
 };
 
+exports.Prisma.NotificationsScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  message: 'message',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -159,12 +171,18 @@ exports.Prisma.QueryMode = {
   insensitive: 'insensitive'
 };
 
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+
 
 exports.Prisma.ModelName = {
   users: 'users',
   profiles: 'profiles',
   bank_accounts: 'bank_accounts',
-  transactions: 'transactions'
+  transactions: 'transactions',
+  notifications: 'notifications'
 };
 
 /**

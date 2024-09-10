@@ -33,6 +33,11 @@ export type bank_accounts = $Result.DefaultSelection<Prisma.$bank_accountsPayloa
  * 
  */
 export type transactions = $Result.DefaultSelection<Prisma.$transactionsPayload>
+/**
+ * Model notifications
+ * 
+ */
+export type notifications = $Result.DefaultSelection<Prisma.$notificationsPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -136,6 +141,7 @@ export class PrismaClient<
    */
   $queryRawUnsafe<T = unknown>(query: string, ...values: any[]): Prisma.PrismaPromise<T>;
 
+
   /**
    * Allows the running of a sequence of read/write operations that are guaranteed to either succeed or fail as a whole.
    * @example
@@ -195,6 +201,16 @@ export class PrismaClient<
     * ```
     */
   get transactions(): Prisma.transactionsDelegate<ExtArgs>;
+
+  /**
+   * `prisma.notifications`: Exposes CRUD operations for the **notifications** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Notifications
+    * const notifications = await prisma.notifications.findMany()
+    * ```
+    */
+  get notifications(): Prisma.notificationsDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -252,8 +268,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 5.16.2
-   * Query Engine version: 34ace0eb2704183d2c05b60b52fba5c43c13f303
+   * Prisma Client JS version: 5.19.1
+   * Query Engine version: 69d742ee20b815d88e17e54db4a2a7a3b30324e3
    */
   export type PrismaVersion = {
     client: string
@@ -265,51 +281,13 @@ export namespace Prisma {
    * Utility Types
    */
 
-  /**
-   * From https://github.com/sindresorhus/type-fest/
-   * Matches a JSON object.
-   * This type can be useful to enforce some input to be JSON-compatible or as a super-type to be extended from. 
-   */
-  export type JsonObject = {[Key in string]?: JsonValue}
 
-  /**
-   * From https://github.com/sindresorhus/type-fest/
-   * Matches a JSON array.
-   */
-  export interface JsonArray extends Array<JsonValue> {}
-
-  /**
-   * From https://github.com/sindresorhus/type-fest/
-   * Matches any valid JSON value.
-   */
-  export type JsonValue = string | number | boolean | JsonObject | JsonArray | null
-
-  /**
-   * Matches a JSON object.
-   * Unlike `JsonObject`, this type allows undefined and read-only properties.
-   */
-  export type InputJsonObject = {readonly [Key in string]?: InputJsonValue | null}
-
-  /**
-   * Matches a JSON array.
-   * Unlike `JsonArray`, readonly arrays are assignable to this type.
-   */
-  export interface InputJsonArray extends ReadonlyArray<InputJsonValue | null> {}
-
-  /**
-   * Matches any valid value that can be used as an input for operations like
-   * create and update as the value of a JSON field. Unlike `JsonValue`, this
-   * type allows read-only arrays and read-only object properties and disallows
-   * `null` at the top level.
-   *
-   * `null` cannot be used as the value of a JSON field because its meaning
-   * would be ambiguous. Use `Prisma.JsonNull` to store the JSON null value or
-   * `Prisma.DbNull` to clear the JSON value and set the field to the database
-   * NULL value instead.
-   *
-   * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-by-null-values
-   */
-  export type InputJsonValue = string | number | boolean | InputJsonObject | InputJsonArray | { toJSON(): unknown }
+  export import JsonObject = runtime.JsonObject
+  export import JsonArray = runtime.JsonArray
+  export import JsonValue = runtime.JsonValue
+  export import InputJsonObject = runtime.InputJsonObject
+  export import InputJsonArray = runtime.InputJsonArray
+  export import InputJsonValue = runtime.InputJsonValue
 
   /**
    * Types of the values used to represent different kinds of `null` values when working with JSON fields.
@@ -675,7 +653,8 @@ export namespace Prisma {
     users: 'users',
     profiles: 'profiles',
     bank_accounts: 'bank_accounts',
-    transactions: 'transactions'
+    transactions: 'transactions',
+    notifications: 'notifications'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -691,7 +670,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "users" | "profiles" | "bank_accounts" | "transactions"
+      modelProps: "users" | "profiles" | "bank_accounts" | "transactions" | "notifications"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -975,25 +954,95 @@ export namespace Prisma {
           }
         }
       }
+      notifications: {
+        payload: Prisma.$notificationsPayload<ExtArgs>
+        fields: Prisma.notificationsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.notificationsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$notificationsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.notificationsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$notificationsPayload>
+          }
+          findFirst: {
+            args: Prisma.notificationsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$notificationsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.notificationsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$notificationsPayload>
+          }
+          findMany: {
+            args: Prisma.notificationsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$notificationsPayload>[]
+          }
+          create: {
+            args: Prisma.notificationsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$notificationsPayload>
+          }
+          createMany: {
+            args: Prisma.notificationsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.notificationsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$notificationsPayload>[]
+          }
+          delete: {
+            args: Prisma.notificationsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$notificationsPayload>
+          }
+          update: {
+            args: Prisma.notificationsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$notificationsPayload>
+          }
+          deleteMany: {
+            args: Prisma.notificationsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.notificationsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.notificationsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$notificationsPayload>
+          }
+          aggregate: {
+            args: Prisma.NotificationsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateNotifications>
+          }
+          groupBy: {
+            args: Prisma.notificationsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<NotificationsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.notificationsCountArgs<ExtArgs>
+            result: $Utils.Optional<NotificationsCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
       payload: any
       operations: {
-        $executeRawUnsafe: {
-          args: [query: string, ...values: any[]],
-          result: any
-        }
         $executeRaw: {
           args: [query: TemplateStringsArray | Prisma.Sql, ...values: any[]],
           result: any
         }
-        $queryRawUnsafe: {
+        $executeRawUnsafe: {
           args: [query: string, ...values: any[]],
           result: any
         }
         $queryRaw: {
           args: [query: TemplateStringsArray | Prisma.Sql, ...values: any[]],
+          result: any
+        }
+        $queryRawUnsafe: {
+          args: [query: string, ...values: any[]],
           result: any
         }
       }
@@ -1137,10 +1186,12 @@ export namespace Prisma {
 
   export type UsersCountOutputType = {
     accounts: number
+    notifications: number
   }
 
   export type UsersCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     accounts?: boolean | UsersCountOutputTypeCountAccountsArgs
+    notifications?: boolean | UsersCountOutputTypeCountNotificationsArgs
   }
 
   // Custom InputTypes
@@ -1159,6 +1210,13 @@ export namespace Prisma {
    */
   export type UsersCountOutputTypeCountAccountsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: bank_accountsWhereInput
+  }
+
+  /**
+   * UsersCountOutputType without action
+   */
+  export type UsersCountOutputTypeCountNotificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: notificationsWhereInput
   }
 
 
@@ -1212,32 +1270,28 @@ export namespace Prisma {
 
   export type AggregateUsers = {
     _count: UsersCountAggregateOutputType | null
-    _avg: UsersAvgAggregateOutputType | null
-    _sum: UsersSumAggregateOutputType | null
     _min: UsersMinAggregateOutputType | null
     _max: UsersMaxAggregateOutputType | null
   }
 
-  export type UsersAvgAggregateOutputType = {
-    id: number | null
-  }
-
-  export type UsersSumAggregateOutputType = {
-    id: number | null
-  }
-
   export type UsersMinAggregateOutputType = {
-    id: number | null
+    id: string | null
     name: string | null
     email: string | null
     password: string | null
+    otp: string | null
+    socket_id: string | null
+    user_agent: string | null
   }
 
   export type UsersMaxAggregateOutputType = {
-    id: number | null
+    id: string | null
     name: string | null
     email: string | null
     password: string | null
+    otp: string | null
+    socket_id: string | null
+    user_agent: string | null
   }
 
   export type UsersCountAggregateOutputType = {
@@ -1245,23 +1299,21 @@ export namespace Prisma {
     name: number
     email: number
     password: number
+    otp: number
+    socket_id: number
+    user_agent: number
     _all: number
   }
 
-
-  export type UsersAvgAggregateInputType = {
-    id?: true
-  }
-
-  export type UsersSumAggregateInputType = {
-    id?: true
-  }
 
   export type UsersMinAggregateInputType = {
     id?: true
     name?: true
     email?: true
     password?: true
+    otp?: true
+    socket_id?: true
+    user_agent?: true
   }
 
   export type UsersMaxAggregateInputType = {
@@ -1269,6 +1321,9 @@ export namespace Prisma {
     name?: true
     email?: true
     password?: true
+    otp?: true
+    socket_id?: true
+    user_agent?: true
   }
 
   export type UsersCountAggregateInputType = {
@@ -1276,6 +1331,9 @@ export namespace Prisma {
     name?: true
     email?: true
     password?: true
+    otp?: true
+    socket_id?: true
+    user_agent?: true
     _all?: true
   }
 
@@ -1317,18 +1375,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: UsersAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: UsersSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: UsersMinAggregateInputType
@@ -1359,20 +1405,19 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: UsersCountAggregateInputType | true
-    _avg?: UsersAvgAggregateInputType
-    _sum?: UsersSumAggregateInputType
     _min?: UsersMinAggregateInputType
     _max?: UsersMaxAggregateInputType
   }
 
   export type UsersGroupByOutputType = {
-    id: number
+    id: string
     name: string
     email: string
     password: string
+    otp: string | null
+    socket_id: string | null
+    user_agent: string | null
     _count: UsersCountAggregateOutputType | null
-    _avg: UsersAvgAggregateOutputType | null
-    _sum: UsersSumAggregateOutputType | null
     _min: UsersMinAggregateOutputType | null
     _max: UsersMaxAggregateOutputType | null
   }
@@ -1396,8 +1441,12 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     password?: boolean
+    otp?: boolean
+    socket_id?: boolean
+    user_agent?: boolean
     profile?: boolean | users$profileArgs<ExtArgs>
     accounts?: boolean | users$accountsArgs<ExtArgs>
+    notifications?: boolean | users$notificationsArgs<ExtArgs>
     _count?: boolean | UsersCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["users"]>
 
@@ -1406,6 +1455,9 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     password?: boolean
+    otp?: boolean
+    socket_id?: boolean
+    user_agent?: boolean
   }, ExtArgs["result"]["users"]>
 
   export type usersSelectScalar = {
@@ -1413,11 +1465,15 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     password?: boolean
+    otp?: boolean
+    socket_id?: boolean
+    user_agent?: boolean
   }
 
   export type usersInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     profile?: boolean | users$profileArgs<ExtArgs>
     accounts?: boolean | users$accountsArgs<ExtArgs>
+    notifications?: boolean | users$notificationsArgs<ExtArgs>
     _count?: boolean | UsersCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type usersIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1427,12 +1483,16 @@ export namespace Prisma {
     objects: {
       profile: Prisma.$profilesPayload<ExtArgs> | null
       accounts: Prisma.$bank_accountsPayload<ExtArgs>[]
+      notifications: Prisma.$notificationsPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
+      id: string
       name: string
       email: string
       password: string
+      otp: string | null
+      socket_id: string | null
+      user_agent: string | null
     }, ExtArgs["result"]["users"]>
     composites: {}
   }
@@ -1799,6 +1859,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     profile<T extends users$profileArgs<ExtArgs> = {}>(args?: Subset<T, users$profileArgs<ExtArgs>>): Prisma__profilesClient<$Result.GetResult<Prisma.$profilesPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     accounts<T extends users$accountsArgs<ExtArgs> = {}>(args?: Subset<T, users$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$bank_accountsPayload<ExtArgs>, T, "findMany"> | Null>
+    notifications<T extends users$notificationsArgs<ExtArgs> = {}>(args?: Subset<T, users$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$notificationsPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1828,10 +1889,13 @@ export namespace Prisma {
    * Fields of the users model
    */ 
   interface usersFieldRefs {
-    readonly id: FieldRef<"users", 'Int'>
+    readonly id: FieldRef<"users", 'String'>
     readonly name: FieldRef<"users", 'String'>
     readonly email: FieldRef<"users", 'String'>
     readonly password: FieldRef<"users", 'String'>
+    readonly otp: FieldRef<"users", 'String'>
+    readonly socket_id: FieldRef<"users", 'String'>
+    readonly user_agent: FieldRef<"users", 'String'>
   }
     
 
@@ -2181,6 +2245,26 @@ export namespace Prisma {
   }
 
   /**
+   * users.notifications
+   */
+  export type users$notificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the notifications
+     */
+    select?: notificationsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: notificationsInclude<ExtArgs> | null
+    where?: notificationsWhereInput
+    orderBy?: notificationsOrderByWithRelationInput | notificationsOrderByWithRelationInput[]
+    cursor?: notificationsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: NotificationsScalarFieldEnum | NotificationsScalarFieldEnum[]
+  }
+
+  /**
    * users without action
    */
   export type usersDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2201,33 +2285,21 @@ export namespace Prisma {
 
   export type AggregateProfiles = {
     _count: ProfilesCountAggregateOutputType | null
-    _avg: ProfilesAvgAggregateOutputType | null
-    _sum: ProfilesSumAggregateOutputType | null
     _min: ProfilesMinAggregateOutputType | null
     _max: ProfilesMaxAggregateOutputType | null
   }
 
-  export type ProfilesAvgAggregateOutputType = {
-    id: number | null
-    user_id: number | null
-  }
-
-  export type ProfilesSumAggregateOutputType = {
-    id: number | null
-    user_id: number | null
-  }
-
   export type ProfilesMinAggregateOutputType = {
-    id: number | null
-    user_id: number | null
+    id: string | null
+    user_id: string | null
     identity_type: string | null
     identity_number: string | null
     address: string | null
   }
 
   export type ProfilesMaxAggregateOutputType = {
-    id: number | null
-    user_id: number | null
+    id: string | null
+    user_id: string | null
     identity_type: string | null
     identity_number: string | null
     address: string | null
@@ -2242,16 +2314,6 @@ export namespace Prisma {
     _all: number
   }
 
-
-  export type ProfilesAvgAggregateInputType = {
-    id?: true
-    user_id?: true
-  }
-
-  export type ProfilesSumAggregateInputType = {
-    id?: true
-    user_id?: true
-  }
 
   export type ProfilesMinAggregateInputType = {
     id?: true
@@ -2316,18 +2378,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: ProfilesAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: ProfilesSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: ProfilesMinAggregateInputType
@@ -2358,21 +2408,17 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: ProfilesCountAggregateInputType | true
-    _avg?: ProfilesAvgAggregateInputType
-    _sum?: ProfilesSumAggregateInputType
     _min?: ProfilesMinAggregateInputType
     _max?: ProfilesMaxAggregateInputType
   }
 
   export type ProfilesGroupByOutputType = {
-    id: number
-    user_id: number
+    id: string
+    user_id: string
     identity_type: string
     identity_number: string
     address: string
     _count: ProfilesCountAggregateOutputType | null
-    _avg: ProfilesAvgAggregateOutputType | null
-    _sum: ProfilesSumAggregateOutputType | null
     _min: ProfilesMinAggregateOutputType | null
     _max: ProfilesMaxAggregateOutputType | null
   }
@@ -2430,8 +2476,8 @@ export namespace Prisma {
       user: Prisma.$usersPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
-      user_id: number
+      id: string
+      user_id: string
       identity_type: string
       identity_number: string
       address: string
@@ -2829,8 +2875,8 @@ export namespace Prisma {
    * Fields of the profiles model
    */ 
   interface profilesFieldRefs {
-    readonly id: FieldRef<"profiles", 'Int'>
-    readonly user_id: FieldRef<"profiles", 'Int'>
+    readonly id: FieldRef<"profiles", 'String'>
+    readonly user_id: FieldRef<"profiles", 'String'>
     readonly identity_type: FieldRef<"profiles", 'String'>
     readonly identity_number: FieldRef<"profiles", 'String'>
     readonly address: FieldRef<"profiles", 'String'>
@@ -3179,28 +3225,24 @@ export namespace Prisma {
   }
 
   export type Bank_accountsAvgAggregateOutputType = {
-    id: number | null
-    user_id: number | null
     balance: number | null
   }
 
   export type Bank_accountsSumAggregateOutputType = {
-    id: number | null
-    user_id: number | null
     balance: number | null
   }
 
   export type Bank_accountsMinAggregateOutputType = {
-    id: number | null
-    user_id: number | null
+    id: string | null
+    user_id: string | null
     bank_name: string | null
     bank_account_number: string | null
     balance: number | null
   }
 
   export type Bank_accountsMaxAggregateOutputType = {
-    id: number | null
-    user_id: number | null
+    id: string | null
+    user_id: string | null
     bank_name: string | null
     bank_account_number: string | null
     balance: number | null
@@ -3217,14 +3259,10 @@ export namespace Prisma {
 
 
   export type Bank_accountsAvgAggregateInputType = {
-    id?: true
-    user_id?: true
     balance?: true
   }
 
   export type Bank_accountsSumAggregateInputType = {
-    id?: true
-    user_id?: true
     balance?: true
   }
 
@@ -3340,8 +3378,8 @@ export namespace Prisma {
   }
 
   export type Bank_accountsGroupByOutputType = {
-    id: number
-    user_id: number
+    id: string
+    user_id: string
     bank_name: string
     bank_account_number: string
     balance: number
@@ -3413,8 +3451,8 @@ export namespace Prisma {
       transactions_to: Prisma.$transactionsPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
-      user_id: number
+      id: string
+      user_id: string
       bank_name: string
       bank_account_number: string
       balance: number
@@ -3814,8 +3852,8 @@ export namespace Prisma {
    * Fields of the bank_accounts model
    */ 
   interface bank_accountsFieldRefs {
-    readonly id: FieldRef<"bank_accounts", 'Int'>
-    readonly user_id: FieldRef<"bank_accounts", 'Int'>
+    readonly id: FieldRef<"bank_accounts", 'String'>
+    readonly user_id: FieldRef<"bank_accounts", 'String'>
     readonly bank_name: FieldRef<"bank_accounts", 'String'>
     readonly bank_account_number: FieldRef<"bank_accounts", 'String'>
     readonly balance: FieldRef<"bank_accounts", 'Float'>
@@ -4204,30 +4242,24 @@ export namespace Prisma {
   }
 
   export type TransactionsAvgAggregateOutputType = {
-    id: number | null
-    source_account_id: number | null
-    destination_account_id: number | null
     amount: number | null
   }
 
   export type TransactionsSumAggregateOutputType = {
-    id: number | null
-    source_account_id: number | null
-    destination_account_id: number | null
     amount: number | null
   }
 
   export type TransactionsMinAggregateOutputType = {
-    id: number | null
-    source_account_id: number | null
-    destination_account_id: number | null
+    id: string | null
+    source_account_id: string | null
+    destination_account_id: string | null
     amount: number | null
   }
 
   export type TransactionsMaxAggregateOutputType = {
-    id: number | null
-    source_account_id: number | null
-    destination_account_id: number | null
+    id: string | null
+    source_account_id: string | null
+    destination_account_id: string | null
     amount: number | null
   }
 
@@ -4241,16 +4273,10 @@ export namespace Prisma {
 
 
   export type TransactionsAvgAggregateInputType = {
-    id?: true
-    source_account_id?: true
-    destination_account_id?: true
     amount?: true
   }
 
   export type TransactionsSumAggregateInputType = {
-    id?: true
-    source_account_id?: true
-    destination_account_id?: true
     amount?: true
   }
 
@@ -4363,9 +4389,9 @@ export namespace Prisma {
   }
 
   export type TransactionsGroupByOutputType = {
-    id: number
-    source_account_id: number
-    destination_account_id: number
+    id: string
+    source_account_id: string
+    destination_account_id: string
     amount: number
     _count: TransactionsCountAggregateOutputType | null
     _avg: TransactionsAvgAggregateOutputType | null
@@ -4429,9 +4455,9 @@ export namespace Prisma {
       destination_account: Prisma.$bank_accountsPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
-      source_account_id: number
-      destination_account_id: number
+      id: string
+      source_account_id: string
+      destination_account_id: string
       amount: number
     }, ExtArgs["result"]["transactions"]>
     composites: {}
@@ -4828,9 +4854,9 @@ export namespace Prisma {
    * Fields of the transactions model
    */ 
   interface transactionsFieldRefs {
-    readonly id: FieldRef<"transactions", 'Int'>
-    readonly source_account_id: FieldRef<"transactions", 'Int'>
-    readonly destination_account_id: FieldRef<"transactions", 'Int'>
+    readonly id: FieldRef<"transactions", 'String'>
+    readonly source_account_id: FieldRef<"transactions", 'String'>
+    readonly destination_account_id: FieldRef<"transactions", 'String'>
     readonly amount: FieldRef<"transactions", 'Float'>
   }
     
@@ -5165,6 +5191,951 @@ export namespace Prisma {
 
 
   /**
+   * Model notifications
+   */
+
+  export type AggregateNotifications = {
+    _count: NotificationsCountAggregateOutputType | null
+    _min: NotificationsMinAggregateOutputType | null
+    _max: NotificationsMaxAggregateOutputType | null
+  }
+
+  export type NotificationsMinAggregateOutputType = {
+    id: string | null
+    user_id: string | null
+    message: string | null
+    status: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type NotificationsMaxAggregateOutputType = {
+    id: string | null
+    user_id: string | null
+    message: string | null
+    status: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type NotificationsCountAggregateOutputType = {
+    id: number
+    user_id: number
+    message: number
+    status: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type NotificationsMinAggregateInputType = {
+    id?: true
+    user_id?: true
+    message?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type NotificationsMaxAggregateInputType = {
+    id?: true
+    user_id?: true
+    message?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type NotificationsCountAggregateInputType = {
+    id?: true
+    user_id?: true
+    message?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type NotificationsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which notifications to aggregate.
+     */
+    where?: notificationsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of notifications to fetch.
+     */
+    orderBy?: notificationsOrderByWithRelationInput | notificationsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: notificationsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` notifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` notifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned notifications
+    **/
+    _count?: true | NotificationsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: NotificationsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: NotificationsMaxAggregateInputType
+  }
+
+  export type GetNotificationsAggregateType<T extends NotificationsAggregateArgs> = {
+        [P in keyof T & keyof AggregateNotifications]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateNotifications[P]>
+      : GetScalarType<T[P], AggregateNotifications[P]>
+  }
+
+
+
+
+  export type notificationsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: notificationsWhereInput
+    orderBy?: notificationsOrderByWithAggregationInput | notificationsOrderByWithAggregationInput[]
+    by: NotificationsScalarFieldEnum[] | NotificationsScalarFieldEnum
+    having?: notificationsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: NotificationsCountAggregateInputType | true
+    _min?: NotificationsMinAggregateInputType
+    _max?: NotificationsMaxAggregateInputType
+  }
+
+  export type NotificationsGroupByOutputType = {
+    id: string
+    user_id: string
+    message: string
+    status: string
+    createdAt: Date
+    updatedAt: Date
+    _count: NotificationsCountAggregateOutputType | null
+    _min: NotificationsMinAggregateOutputType | null
+    _max: NotificationsMaxAggregateOutputType | null
+  }
+
+  type GetNotificationsGroupByPayload<T extends notificationsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<NotificationsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof NotificationsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], NotificationsGroupByOutputType[P]>
+            : GetScalarType<T[P], NotificationsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type notificationsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    user_id?: boolean
+    message?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["notifications"]>
+
+  export type notificationsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    user_id?: boolean
+    message?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["notifications"]>
+
+  export type notificationsSelectScalar = {
+    id?: boolean
+    user_id?: boolean
+    message?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type notificationsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }
+  export type notificationsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }
+
+  export type $notificationsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "notifications"
+    objects: {
+      user: Prisma.$usersPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      user_id: string
+      message: string
+      status: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["notifications"]>
+    composites: {}
+  }
+
+  type notificationsGetPayload<S extends boolean | null | undefined | notificationsDefaultArgs> = $Result.GetResult<Prisma.$notificationsPayload, S>
+
+  type notificationsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<notificationsFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: NotificationsCountAggregateInputType | true
+    }
+
+  export interface notificationsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['notifications'], meta: { name: 'notifications' } }
+    /**
+     * Find zero or one Notifications that matches the filter.
+     * @param {notificationsFindUniqueArgs} args - Arguments to find a Notifications
+     * @example
+     * // Get one Notifications
+     * const notifications = await prisma.notifications.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends notificationsFindUniqueArgs>(args: SelectSubset<T, notificationsFindUniqueArgs<ExtArgs>>): Prisma__notificationsClient<$Result.GetResult<Prisma.$notificationsPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one Notifications that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {notificationsFindUniqueOrThrowArgs} args - Arguments to find a Notifications
+     * @example
+     * // Get one Notifications
+     * const notifications = await prisma.notifications.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends notificationsFindUniqueOrThrowArgs>(args: SelectSubset<T, notificationsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__notificationsClient<$Result.GetResult<Prisma.$notificationsPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first Notifications that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {notificationsFindFirstArgs} args - Arguments to find a Notifications
+     * @example
+     * // Get one Notifications
+     * const notifications = await prisma.notifications.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends notificationsFindFirstArgs>(args?: SelectSubset<T, notificationsFindFirstArgs<ExtArgs>>): Prisma__notificationsClient<$Result.GetResult<Prisma.$notificationsPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first Notifications that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {notificationsFindFirstOrThrowArgs} args - Arguments to find a Notifications
+     * @example
+     * // Get one Notifications
+     * const notifications = await prisma.notifications.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends notificationsFindFirstOrThrowArgs>(args?: SelectSubset<T, notificationsFindFirstOrThrowArgs<ExtArgs>>): Prisma__notificationsClient<$Result.GetResult<Prisma.$notificationsPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Notifications that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {notificationsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Notifications
+     * const notifications = await prisma.notifications.findMany()
+     * 
+     * // Get first 10 Notifications
+     * const notifications = await prisma.notifications.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const notificationsWithIdOnly = await prisma.notifications.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends notificationsFindManyArgs>(args?: SelectSubset<T, notificationsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$notificationsPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a Notifications.
+     * @param {notificationsCreateArgs} args - Arguments to create a Notifications.
+     * @example
+     * // Create one Notifications
+     * const Notifications = await prisma.notifications.create({
+     *   data: {
+     *     // ... data to create a Notifications
+     *   }
+     * })
+     * 
+     */
+    create<T extends notificationsCreateArgs>(args: SelectSubset<T, notificationsCreateArgs<ExtArgs>>): Prisma__notificationsClient<$Result.GetResult<Prisma.$notificationsPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Notifications.
+     * @param {notificationsCreateManyArgs} args - Arguments to create many Notifications.
+     * @example
+     * // Create many Notifications
+     * const notifications = await prisma.notifications.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends notificationsCreateManyArgs>(args?: SelectSubset<T, notificationsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Notifications and returns the data saved in the database.
+     * @param {notificationsCreateManyAndReturnArgs} args - Arguments to create many Notifications.
+     * @example
+     * // Create many Notifications
+     * const notifications = await prisma.notifications.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Notifications and only return the `id`
+     * const notificationsWithIdOnly = await prisma.notifications.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends notificationsCreateManyAndReturnArgs>(args?: SelectSubset<T, notificationsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$notificationsPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a Notifications.
+     * @param {notificationsDeleteArgs} args - Arguments to delete one Notifications.
+     * @example
+     * // Delete one Notifications
+     * const Notifications = await prisma.notifications.delete({
+     *   where: {
+     *     // ... filter to delete one Notifications
+     *   }
+     * })
+     * 
+     */
+    delete<T extends notificationsDeleteArgs>(args: SelectSubset<T, notificationsDeleteArgs<ExtArgs>>): Prisma__notificationsClient<$Result.GetResult<Prisma.$notificationsPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one Notifications.
+     * @param {notificationsUpdateArgs} args - Arguments to update one Notifications.
+     * @example
+     * // Update one Notifications
+     * const notifications = await prisma.notifications.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends notificationsUpdateArgs>(args: SelectSubset<T, notificationsUpdateArgs<ExtArgs>>): Prisma__notificationsClient<$Result.GetResult<Prisma.$notificationsPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Notifications.
+     * @param {notificationsDeleteManyArgs} args - Arguments to filter Notifications to delete.
+     * @example
+     * // Delete a few Notifications
+     * const { count } = await prisma.notifications.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends notificationsDeleteManyArgs>(args?: SelectSubset<T, notificationsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Notifications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {notificationsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Notifications
+     * const notifications = await prisma.notifications.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends notificationsUpdateManyArgs>(args: SelectSubset<T, notificationsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Notifications.
+     * @param {notificationsUpsertArgs} args - Arguments to update or create a Notifications.
+     * @example
+     * // Update or create a Notifications
+     * const notifications = await prisma.notifications.upsert({
+     *   create: {
+     *     // ... data to create a Notifications
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Notifications we want to update
+     *   }
+     * })
+     */
+    upsert<T extends notificationsUpsertArgs>(args: SelectSubset<T, notificationsUpsertArgs<ExtArgs>>): Prisma__notificationsClient<$Result.GetResult<Prisma.$notificationsPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Notifications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {notificationsCountArgs} args - Arguments to filter Notifications to count.
+     * @example
+     * // Count the number of Notifications
+     * const count = await prisma.notifications.count({
+     *   where: {
+     *     // ... the filter for the Notifications we want to count
+     *   }
+     * })
+    **/
+    count<T extends notificationsCountArgs>(
+      args?: Subset<T, notificationsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], NotificationsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Notifications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends NotificationsAggregateArgs>(args: Subset<T, NotificationsAggregateArgs>): Prisma.PrismaPromise<GetNotificationsAggregateType<T>>
+
+    /**
+     * Group by Notifications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {notificationsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends notificationsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: notificationsGroupByArgs['orderBy'] }
+        : { orderBy?: notificationsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, notificationsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetNotificationsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the notifications model
+   */
+  readonly fields: notificationsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for notifications.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__notificationsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the notifications model
+   */ 
+  interface notificationsFieldRefs {
+    readonly id: FieldRef<"notifications", 'String'>
+    readonly user_id: FieldRef<"notifications", 'String'>
+    readonly message: FieldRef<"notifications", 'String'>
+    readonly status: FieldRef<"notifications", 'String'>
+    readonly createdAt: FieldRef<"notifications", 'DateTime'>
+    readonly updatedAt: FieldRef<"notifications", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * notifications findUnique
+   */
+  export type notificationsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the notifications
+     */
+    select?: notificationsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: notificationsInclude<ExtArgs> | null
+    /**
+     * Filter, which notifications to fetch.
+     */
+    where: notificationsWhereUniqueInput
+  }
+
+  /**
+   * notifications findUniqueOrThrow
+   */
+  export type notificationsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the notifications
+     */
+    select?: notificationsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: notificationsInclude<ExtArgs> | null
+    /**
+     * Filter, which notifications to fetch.
+     */
+    where: notificationsWhereUniqueInput
+  }
+
+  /**
+   * notifications findFirst
+   */
+  export type notificationsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the notifications
+     */
+    select?: notificationsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: notificationsInclude<ExtArgs> | null
+    /**
+     * Filter, which notifications to fetch.
+     */
+    where?: notificationsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of notifications to fetch.
+     */
+    orderBy?: notificationsOrderByWithRelationInput | notificationsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for notifications.
+     */
+    cursor?: notificationsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` notifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` notifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of notifications.
+     */
+    distinct?: NotificationsScalarFieldEnum | NotificationsScalarFieldEnum[]
+  }
+
+  /**
+   * notifications findFirstOrThrow
+   */
+  export type notificationsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the notifications
+     */
+    select?: notificationsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: notificationsInclude<ExtArgs> | null
+    /**
+     * Filter, which notifications to fetch.
+     */
+    where?: notificationsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of notifications to fetch.
+     */
+    orderBy?: notificationsOrderByWithRelationInput | notificationsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for notifications.
+     */
+    cursor?: notificationsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` notifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` notifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of notifications.
+     */
+    distinct?: NotificationsScalarFieldEnum | NotificationsScalarFieldEnum[]
+  }
+
+  /**
+   * notifications findMany
+   */
+  export type notificationsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the notifications
+     */
+    select?: notificationsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: notificationsInclude<ExtArgs> | null
+    /**
+     * Filter, which notifications to fetch.
+     */
+    where?: notificationsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of notifications to fetch.
+     */
+    orderBy?: notificationsOrderByWithRelationInput | notificationsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing notifications.
+     */
+    cursor?: notificationsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` notifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` notifications.
+     */
+    skip?: number
+    distinct?: NotificationsScalarFieldEnum | NotificationsScalarFieldEnum[]
+  }
+
+  /**
+   * notifications create
+   */
+  export type notificationsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the notifications
+     */
+    select?: notificationsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: notificationsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a notifications.
+     */
+    data: XOR<notificationsCreateInput, notificationsUncheckedCreateInput>
+  }
+
+  /**
+   * notifications createMany
+   */
+  export type notificationsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many notifications.
+     */
+    data: notificationsCreateManyInput | notificationsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * notifications createManyAndReturn
+   */
+  export type notificationsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the notifications
+     */
+    select?: notificationsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many notifications.
+     */
+    data: notificationsCreateManyInput | notificationsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: notificationsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * notifications update
+   */
+  export type notificationsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the notifications
+     */
+    select?: notificationsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: notificationsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a notifications.
+     */
+    data: XOR<notificationsUpdateInput, notificationsUncheckedUpdateInput>
+    /**
+     * Choose, which notifications to update.
+     */
+    where: notificationsWhereUniqueInput
+  }
+
+  /**
+   * notifications updateMany
+   */
+  export type notificationsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update notifications.
+     */
+    data: XOR<notificationsUpdateManyMutationInput, notificationsUncheckedUpdateManyInput>
+    /**
+     * Filter which notifications to update
+     */
+    where?: notificationsWhereInput
+  }
+
+  /**
+   * notifications upsert
+   */
+  export type notificationsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the notifications
+     */
+    select?: notificationsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: notificationsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the notifications to update in case it exists.
+     */
+    where: notificationsWhereUniqueInput
+    /**
+     * In case the notifications found by the `where` argument doesn't exist, create a new notifications with this data.
+     */
+    create: XOR<notificationsCreateInput, notificationsUncheckedCreateInput>
+    /**
+     * In case the notifications was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<notificationsUpdateInput, notificationsUncheckedUpdateInput>
+  }
+
+  /**
+   * notifications delete
+   */
+  export type notificationsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the notifications
+     */
+    select?: notificationsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: notificationsInclude<ExtArgs> | null
+    /**
+     * Filter which notifications to delete.
+     */
+    where: notificationsWhereUniqueInput
+  }
+
+  /**
+   * notifications deleteMany
+   */
+  export type notificationsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which notifications to delete
+     */
+    where?: notificationsWhereInput
+  }
+
+  /**
+   * notifications without action
+   */
+  export type notificationsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the notifications
+     */
+    select?: notificationsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: notificationsInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -5182,7 +6153,10 @@ export namespace Prisma {
     id: 'id',
     name: 'name',
     email: 'email',
-    password: 'password'
+    password: 'password',
+    otp: 'otp',
+    socket_id: 'socket_id',
+    user_agent: 'user_agent'
   };
 
   export type UsersScalarFieldEnum = (typeof UsersScalarFieldEnum)[keyof typeof UsersScalarFieldEnum]
@@ -5220,6 +6194,18 @@ export namespace Prisma {
   export type TransactionsScalarFieldEnum = (typeof TransactionsScalarFieldEnum)[keyof typeof TransactionsScalarFieldEnum]
 
 
+  export const NotificationsScalarFieldEnum: {
+    id: 'id',
+    user_id: 'user_id',
+    message: 'message',
+    status: 'status',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type NotificationsScalarFieldEnum = (typeof NotificationsScalarFieldEnum)[keyof typeof NotificationsScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -5236,23 +6222,17 @@ export namespace Prisma {
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
 
 
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
   /**
    * Field references 
    */
-
-
-  /**
-   * Reference to a field of type 'Int'
-   */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-    
-
-
-  /**
-   * Reference to a field of type 'Int[]'
-   */
-  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-    
 
 
   /**
@@ -5281,6 +6261,34 @@ export namespace Prisma {
    */
   export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
+
+
+  /**
+   * Reference to a field of type 'DateTime'
+   */
+  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+  /**
+   * Reference to a field of type 'DateTime[]'
+   */
+  export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int'
+   */
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int[]'
+   */
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
   /**
    * Deep Input Types
    */
@@ -5290,12 +6298,16 @@ export namespace Prisma {
     AND?: usersWhereInput | usersWhereInput[]
     OR?: usersWhereInput[]
     NOT?: usersWhereInput | usersWhereInput[]
-    id?: IntFilter<"users"> | number
+    id?: StringFilter<"users"> | string
     name?: StringFilter<"users"> | string
     email?: StringFilter<"users"> | string
     password?: StringFilter<"users"> | string
+    otp?: StringNullableFilter<"users"> | string | null
+    socket_id?: StringNullableFilter<"users"> | string | null
+    user_agent?: StringNullableFilter<"users"> | string | null
     profile?: XOR<ProfilesNullableRelationFilter, profilesWhereInput> | null
     accounts?: Bank_accountsListRelationFilter
+    notifications?: NotificationsListRelationFilter
   }
 
   export type usersOrderByWithRelationInput = {
@@ -5303,20 +6315,28 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     password?: SortOrder
+    otp?: SortOrderInput | SortOrder
+    socket_id?: SortOrderInput | SortOrder
+    user_agent?: SortOrderInput | SortOrder
     profile?: profilesOrderByWithRelationInput
     accounts?: bank_accountsOrderByRelationAggregateInput
+    notifications?: notificationsOrderByRelationAggregateInput
   }
 
   export type usersWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     email?: string
     AND?: usersWhereInput | usersWhereInput[]
     OR?: usersWhereInput[]
     NOT?: usersWhereInput | usersWhereInput[]
     name?: StringFilter<"users"> | string
     password?: StringFilter<"users"> | string
+    otp?: StringNullableFilter<"users"> | string | null
+    socket_id?: StringNullableFilter<"users"> | string | null
+    user_agent?: StringNullableFilter<"users"> | string | null
     profile?: XOR<ProfilesNullableRelationFilter, profilesWhereInput> | null
     accounts?: Bank_accountsListRelationFilter
+    notifications?: NotificationsListRelationFilter
   }, "id" | "email">
 
   export type usersOrderByWithAggregationInput = {
@@ -5324,29 +6344,33 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     password?: SortOrder
+    otp?: SortOrderInput | SortOrder
+    socket_id?: SortOrderInput | SortOrder
+    user_agent?: SortOrderInput | SortOrder
     _count?: usersCountOrderByAggregateInput
-    _avg?: usersAvgOrderByAggregateInput
     _max?: usersMaxOrderByAggregateInput
     _min?: usersMinOrderByAggregateInput
-    _sum?: usersSumOrderByAggregateInput
   }
 
   export type usersScalarWhereWithAggregatesInput = {
     AND?: usersScalarWhereWithAggregatesInput | usersScalarWhereWithAggregatesInput[]
     OR?: usersScalarWhereWithAggregatesInput[]
     NOT?: usersScalarWhereWithAggregatesInput | usersScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"users"> | number
+    id?: StringWithAggregatesFilter<"users"> | string
     name?: StringWithAggregatesFilter<"users"> | string
     email?: StringWithAggregatesFilter<"users"> | string
     password?: StringWithAggregatesFilter<"users"> | string
+    otp?: StringNullableWithAggregatesFilter<"users"> | string | null
+    socket_id?: StringNullableWithAggregatesFilter<"users"> | string | null
+    user_agent?: StringNullableWithAggregatesFilter<"users"> | string | null
   }
 
   export type profilesWhereInput = {
     AND?: profilesWhereInput | profilesWhereInput[]
     OR?: profilesWhereInput[]
     NOT?: profilesWhereInput | profilesWhereInput[]
-    id?: IntFilter<"profiles"> | number
-    user_id?: IntFilter<"profiles"> | number
+    id?: StringFilter<"profiles"> | string
+    user_id?: StringFilter<"profiles"> | string
     identity_type?: StringFilter<"profiles"> | string
     identity_number?: StringFilter<"profiles"> | string
     address?: StringFilter<"profiles"> | string
@@ -5363,8 +6387,8 @@ export namespace Prisma {
   }
 
   export type profilesWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
-    user_id?: number
+    id?: string
+    user_id?: string
     AND?: profilesWhereInput | profilesWhereInput[]
     OR?: profilesWhereInput[]
     NOT?: profilesWhereInput | profilesWhereInput[]
@@ -5381,18 +6405,16 @@ export namespace Prisma {
     identity_number?: SortOrder
     address?: SortOrder
     _count?: profilesCountOrderByAggregateInput
-    _avg?: profilesAvgOrderByAggregateInput
     _max?: profilesMaxOrderByAggregateInput
     _min?: profilesMinOrderByAggregateInput
-    _sum?: profilesSumOrderByAggregateInput
   }
 
   export type profilesScalarWhereWithAggregatesInput = {
     AND?: profilesScalarWhereWithAggregatesInput | profilesScalarWhereWithAggregatesInput[]
     OR?: profilesScalarWhereWithAggregatesInput[]
     NOT?: profilesScalarWhereWithAggregatesInput | profilesScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"profiles"> | number
-    user_id?: IntWithAggregatesFilter<"profiles"> | number
+    id?: StringWithAggregatesFilter<"profiles"> | string
+    user_id?: StringWithAggregatesFilter<"profiles"> | string
     identity_type?: StringWithAggregatesFilter<"profiles"> | string
     identity_number?: StringWithAggregatesFilter<"profiles"> | string
     address?: StringWithAggregatesFilter<"profiles"> | string
@@ -5402,8 +6424,8 @@ export namespace Prisma {
     AND?: bank_accountsWhereInput | bank_accountsWhereInput[]
     OR?: bank_accountsWhereInput[]
     NOT?: bank_accountsWhereInput | bank_accountsWhereInput[]
-    id?: IntFilter<"bank_accounts"> | number
-    user_id?: IntFilter<"bank_accounts"> | number
+    id?: StringFilter<"bank_accounts"> | string
+    user_id?: StringFilter<"bank_accounts"> | string
     bank_name?: StringFilter<"bank_accounts"> | string
     bank_account_number?: StringFilter<"bank_accounts"> | string
     balance?: FloatFilter<"bank_accounts"> | number
@@ -5424,12 +6446,12 @@ export namespace Prisma {
   }
 
   export type bank_accountsWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     bank_account_number?: string
     AND?: bank_accountsWhereInput | bank_accountsWhereInput[]
     OR?: bank_accountsWhereInput[]
     NOT?: bank_accountsWhereInput | bank_accountsWhereInput[]
-    user_id?: IntFilter<"bank_accounts"> | number
+    user_id?: StringFilter<"bank_accounts"> | string
     bank_name?: StringFilter<"bank_accounts"> | string
     balance?: FloatFilter<"bank_accounts"> | number
     user?: XOR<UsersRelationFilter, usersWhereInput>
@@ -5454,8 +6476,8 @@ export namespace Prisma {
     AND?: bank_accountsScalarWhereWithAggregatesInput | bank_accountsScalarWhereWithAggregatesInput[]
     OR?: bank_accountsScalarWhereWithAggregatesInput[]
     NOT?: bank_accountsScalarWhereWithAggregatesInput | bank_accountsScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"bank_accounts"> | number
-    user_id?: IntWithAggregatesFilter<"bank_accounts"> | number
+    id?: StringWithAggregatesFilter<"bank_accounts"> | string
+    user_id?: StringWithAggregatesFilter<"bank_accounts"> | string
     bank_name?: StringWithAggregatesFilter<"bank_accounts"> | string
     bank_account_number?: StringWithAggregatesFilter<"bank_accounts"> | string
     balance?: FloatWithAggregatesFilter<"bank_accounts"> | number
@@ -5465,9 +6487,9 @@ export namespace Prisma {
     AND?: transactionsWhereInput | transactionsWhereInput[]
     OR?: transactionsWhereInput[]
     NOT?: transactionsWhereInput | transactionsWhereInput[]
-    id?: IntFilter<"transactions"> | number
-    source_account_id?: IntFilter<"transactions"> | number
-    destination_account_id?: IntFilter<"transactions"> | number
+    id?: StringFilter<"transactions"> | string
+    source_account_id?: StringFilter<"transactions"> | string
+    destination_account_id?: StringFilter<"transactions"> | string
     amount?: FloatFilter<"transactions"> | number
     source_account?: XOR<Bank_accountsRelationFilter, bank_accountsWhereInput>
     destination_account?: XOR<Bank_accountsRelationFilter, bank_accountsWhereInput>
@@ -5483,12 +6505,12 @@ export namespace Prisma {
   }
 
   export type transactionsWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     AND?: transactionsWhereInput | transactionsWhereInput[]
     OR?: transactionsWhereInput[]
     NOT?: transactionsWhereInput | transactionsWhereInput[]
-    source_account_id?: IntFilter<"transactions"> | number
-    destination_account_id?: IntFilter<"transactions"> | number
+    source_account_id?: StringFilter<"transactions"> | string
+    destination_account_id?: StringFilter<"transactions"> | string
     amount?: FloatFilter<"transactions"> | number
     source_account?: XOR<Bank_accountsRelationFilter, bank_accountsWhereInput>
     destination_account?: XOR<Bank_accountsRelationFilter, bank_accountsWhereInput>
@@ -5510,67 +6532,156 @@ export namespace Prisma {
     AND?: transactionsScalarWhereWithAggregatesInput | transactionsScalarWhereWithAggregatesInput[]
     OR?: transactionsScalarWhereWithAggregatesInput[]
     NOT?: transactionsScalarWhereWithAggregatesInput | transactionsScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"transactions"> | number
-    source_account_id?: IntWithAggregatesFilter<"transactions"> | number
-    destination_account_id?: IntWithAggregatesFilter<"transactions"> | number
+    id?: StringWithAggregatesFilter<"transactions"> | string
+    source_account_id?: StringWithAggregatesFilter<"transactions"> | string
+    destination_account_id?: StringWithAggregatesFilter<"transactions"> | string
     amount?: FloatWithAggregatesFilter<"transactions"> | number
   }
 
+  export type notificationsWhereInput = {
+    AND?: notificationsWhereInput | notificationsWhereInput[]
+    OR?: notificationsWhereInput[]
+    NOT?: notificationsWhereInput | notificationsWhereInput[]
+    id?: StringFilter<"notifications"> | string
+    user_id?: StringFilter<"notifications"> | string
+    message?: StringFilter<"notifications"> | string
+    status?: StringFilter<"notifications"> | string
+    createdAt?: DateTimeFilter<"notifications"> | Date | string
+    updatedAt?: DateTimeFilter<"notifications"> | Date | string
+    user?: XOR<UsersRelationFilter, usersWhereInput>
+  }
+
+  export type notificationsOrderByWithRelationInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    message?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: usersOrderByWithRelationInput
+  }
+
+  export type notificationsWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: notificationsWhereInput | notificationsWhereInput[]
+    OR?: notificationsWhereInput[]
+    NOT?: notificationsWhereInput | notificationsWhereInput[]
+    user_id?: StringFilter<"notifications"> | string
+    message?: StringFilter<"notifications"> | string
+    status?: StringFilter<"notifications"> | string
+    createdAt?: DateTimeFilter<"notifications"> | Date | string
+    updatedAt?: DateTimeFilter<"notifications"> | Date | string
+    user?: XOR<UsersRelationFilter, usersWhereInput>
+  }, "id">
+
+  export type notificationsOrderByWithAggregationInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    message?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: notificationsCountOrderByAggregateInput
+    _max?: notificationsMaxOrderByAggregateInput
+    _min?: notificationsMinOrderByAggregateInput
+  }
+
+  export type notificationsScalarWhereWithAggregatesInput = {
+    AND?: notificationsScalarWhereWithAggregatesInput | notificationsScalarWhereWithAggregatesInput[]
+    OR?: notificationsScalarWhereWithAggregatesInput[]
+    NOT?: notificationsScalarWhereWithAggregatesInput | notificationsScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"notifications"> | string
+    user_id?: StringWithAggregatesFilter<"notifications"> | string
+    message?: StringWithAggregatesFilter<"notifications"> | string
+    status?: StringWithAggregatesFilter<"notifications"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"notifications"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"notifications"> | Date | string
+  }
+
   export type usersCreateInput = {
+    id?: string
     name: string
     email: string
     password: string
+    otp?: string | null
+    socket_id?: string | null
+    user_agent?: string | null
     profile?: profilesCreateNestedOneWithoutUserInput
     accounts?: bank_accountsCreateNestedManyWithoutUserInput
+    notifications?: notificationsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateInput = {
-    id?: number
+    id?: string
     name: string
     email: string
     password: string
+    otp?: string | null
+    socket_id?: string | null
+    user_agent?: string | null
     profile?: profilesUncheckedCreateNestedOneWithoutUserInput
     accounts?: bank_accountsUncheckedCreateNestedManyWithoutUserInput
+    notifications?: notificationsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    socket_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_agent?: NullableStringFieldUpdateOperationsInput | string | null
     profile?: profilesUpdateOneWithoutUserNestedInput
     accounts?: bank_accountsUpdateManyWithoutUserNestedInput
+    notifications?: notificationsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    socket_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_agent?: NullableStringFieldUpdateOperationsInput | string | null
     profile?: profilesUncheckedUpdateOneWithoutUserNestedInput
     accounts?: bank_accountsUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: notificationsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type usersCreateManyInput = {
-    id?: number
+    id?: string
     name: string
     email: string
     password: string
+    otp?: string | null
+    socket_id?: string | null
+    user_agent?: string | null
   }
 
   export type usersUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    socket_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_agent?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type usersUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    socket_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_agent?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type profilesCreateInput = {
+    id?: string
     identity_type: string
     identity_number: string
     address: string
@@ -5578,14 +6689,15 @@ export namespace Prisma {
   }
 
   export type profilesUncheckedCreateInput = {
-    id?: number
-    user_id: number
+    id?: string
+    user_id: string
     identity_type: string
     identity_number: string
     address: string
   }
 
   export type profilesUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     identity_type?: StringFieldUpdateOperationsInput | string
     identity_number?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
@@ -5593,36 +6705,38 @@ export namespace Prisma {
   }
 
   export type profilesUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    user_id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
     identity_type?: StringFieldUpdateOperationsInput | string
     identity_number?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
   }
 
   export type profilesCreateManyInput = {
-    id?: number
-    user_id: number
+    id?: string
+    user_id: string
     identity_type: string
     identity_number: string
     address: string
   }
 
   export type profilesUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     identity_type?: StringFieldUpdateOperationsInput | string
     identity_number?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
   }
 
   export type profilesUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    user_id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
     identity_type?: StringFieldUpdateOperationsInput | string
     identity_number?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
   }
 
   export type bank_accountsCreateInput = {
+    id?: string
     bank_name: string
     bank_account_number: string
     balance: number
@@ -5632,8 +6746,8 @@ export namespace Prisma {
   }
 
   export type bank_accountsUncheckedCreateInput = {
-    id?: number
-    user_id: number
+    id?: string
+    user_id: string
     bank_name: string
     bank_account_number: string
     balance: number
@@ -5642,6 +6756,7 @@ export namespace Prisma {
   }
 
   export type bank_accountsUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     bank_name?: StringFieldUpdateOperationsInput | string
     bank_account_number?: StringFieldUpdateOperationsInput | string
     balance?: FloatFieldUpdateOperationsInput | number
@@ -5651,8 +6766,8 @@ export namespace Prisma {
   }
 
   export type bank_accountsUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    user_id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
     bank_name?: StringFieldUpdateOperationsInput | string
     bank_account_number?: StringFieldUpdateOperationsInput | string
     balance?: FloatFieldUpdateOperationsInput | number
@@ -5661,80 +6776,135 @@ export namespace Prisma {
   }
 
   export type bank_accountsCreateManyInput = {
-    id?: number
-    user_id: number
+    id?: string
+    user_id: string
     bank_name: string
     bank_account_number: string
     balance: number
   }
 
   export type bank_accountsUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     bank_name?: StringFieldUpdateOperationsInput | string
     bank_account_number?: StringFieldUpdateOperationsInput | string
     balance?: FloatFieldUpdateOperationsInput | number
   }
 
   export type bank_accountsUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    user_id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
     bank_name?: StringFieldUpdateOperationsInput | string
     bank_account_number?: StringFieldUpdateOperationsInput | string
     balance?: FloatFieldUpdateOperationsInput | number
   }
 
   export type transactionsCreateInput = {
+    id?: string
     amount: number
     source_account: bank_accountsCreateNestedOneWithoutTransactions_fromInput
     destination_account: bank_accountsCreateNestedOneWithoutTransactions_toInput
   }
 
   export type transactionsUncheckedCreateInput = {
-    id?: number
-    source_account_id: number
-    destination_account_id: number
+    id?: string
+    source_account_id: string
+    destination_account_id: string
     amount: number
   }
 
   export type transactionsUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     amount?: FloatFieldUpdateOperationsInput | number
     source_account?: bank_accountsUpdateOneRequiredWithoutTransactions_fromNestedInput
     destination_account?: bank_accountsUpdateOneRequiredWithoutTransactions_toNestedInput
   }
 
   export type transactionsUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    source_account_id?: IntFieldUpdateOperationsInput | number
-    destination_account_id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    source_account_id?: StringFieldUpdateOperationsInput | string
+    destination_account_id?: StringFieldUpdateOperationsInput | string
     amount?: FloatFieldUpdateOperationsInput | number
   }
 
   export type transactionsCreateManyInput = {
-    id?: number
-    source_account_id: number
-    destination_account_id: number
+    id?: string
+    source_account_id: string
+    destination_account_id: string
     amount: number
   }
 
   export type transactionsUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     amount?: FloatFieldUpdateOperationsInput | number
   }
 
   export type transactionsUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    source_account_id?: IntFieldUpdateOperationsInput | number
-    destination_account_id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    source_account_id?: StringFieldUpdateOperationsInput | string
+    destination_account_id?: StringFieldUpdateOperationsInput | string
     amount?: FloatFieldUpdateOperationsInput | number
   }
 
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
+  export type notificationsCreateInput = {
+    id?: string
+    message: string
+    status: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: usersCreateNestedOneWithoutNotificationsInput
+  }
+
+  export type notificationsUncheckedCreateInput = {
+    id?: string
+    user_id: string
+    message: string
+    status: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type notificationsUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: usersUpdateOneRequiredWithoutNotificationsNestedInput
+  }
+
+  export type notificationsUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type notificationsCreateManyInput = {
+    id?: string
+    user_id: string
+    message: string
+    status: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type notificationsUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type notificationsUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -5752,6 +6922,21 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type ProfilesNullableRelationFilter = {
     is?: profilesWhereInput | null
     isNot?: profilesWhereInput | null
@@ -5763,7 +6948,22 @@ export namespace Prisma {
     none?: bank_accountsWhereInput
   }
 
+  export type NotificationsListRelationFilter = {
+    every?: notificationsWhereInput
+    some?: notificationsWhereInput
+    none?: notificationsWhereInput
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
   export type bank_accountsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type notificationsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -5772,10 +6972,9 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     password?: SortOrder
-  }
-
-  export type usersAvgOrderByAggregateInput = {
-    id?: SortOrder
+    otp?: SortOrder
+    socket_id?: SortOrder
+    user_agent?: SortOrder
   }
 
   export type usersMaxOrderByAggregateInput = {
@@ -5783,6 +6982,9 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     password?: SortOrder
+    otp?: SortOrder
+    socket_id?: SortOrder
+    user_agent?: SortOrder
   }
 
   export type usersMinOrderByAggregateInput = {
@@ -5790,26 +6992,9 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     password?: SortOrder
-  }
-
-  export type usersSumOrderByAggregateInput = {
-    id?: SortOrder
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
+    otp?: SortOrder
+    socket_id?: SortOrder
+    user_agent?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -5830,6 +7015,24 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
   export type UsersRelationFilter = {
     is?: usersWhereInput
     isNot?: usersWhereInput
@@ -5841,11 +7044,6 @@ export namespace Prisma {
     identity_type?: SortOrder
     identity_number?: SortOrder
     address?: SortOrder
-  }
-
-  export type profilesAvgOrderByAggregateInput = {
-    id?: SortOrder
-    user_id?: SortOrder
   }
 
   export type profilesMaxOrderByAggregateInput = {
@@ -5862,11 +7060,6 @@ export namespace Prisma {
     identity_type?: SortOrder
     identity_number?: SortOrder
     address?: SortOrder
-  }
-
-  export type profilesSumOrderByAggregateInput = {
-    id?: SortOrder
-    user_id?: SortOrder
   }
 
   export type FloatFilter<$PrismaModel = never> = {
@@ -5899,8 +7092,6 @@ export namespace Prisma {
   }
 
   export type bank_accountsAvgOrderByAggregateInput = {
-    id?: SortOrder
-    user_id?: SortOrder
     balance?: SortOrder
   }
 
@@ -5921,8 +7112,6 @@ export namespace Prisma {
   }
 
   export type bank_accountsSumOrderByAggregateInput = {
-    id?: SortOrder
-    user_id?: SortOrder
     balance?: SortOrder
   }
 
@@ -5955,9 +7144,6 @@ export namespace Prisma {
   }
 
   export type transactionsAvgOrderByAggregateInput = {
-    id?: SortOrder
-    source_account_id?: SortOrder
-    destination_account_id?: SortOrder
     amount?: SortOrder
   }
 
@@ -5976,10 +7162,59 @@ export namespace Prisma {
   }
 
   export type transactionsSumOrderByAggregateInput = {
-    id?: SortOrder
-    source_account_id?: SortOrder
-    destination_account_id?: SortOrder
     amount?: SortOrder
+  }
+
+  export type DateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type notificationsCountOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    message?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type notificationsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    message?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type notificationsMinOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    message?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type profilesCreateNestedOneWithoutUserInput = {
@@ -5995,6 +7230,13 @@ export namespace Prisma {
     connect?: bank_accountsWhereUniqueInput | bank_accountsWhereUniqueInput[]
   }
 
+  export type notificationsCreateNestedManyWithoutUserInput = {
+    create?: XOR<notificationsCreateWithoutUserInput, notificationsUncheckedCreateWithoutUserInput> | notificationsCreateWithoutUserInput[] | notificationsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: notificationsCreateOrConnectWithoutUserInput | notificationsCreateOrConnectWithoutUserInput[]
+    createMany?: notificationsCreateManyUserInputEnvelope
+    connect?: notificationsWhereUniqueInput | notificationsWhereUniqueInput[]
+  }
+
   export type profilesUncheckedCreateNestedOneWithoutUserInput = {
     create?: XOR<profilesCreateWithoutUserInput, profilesUncheckedCreateWithoutUserInput>
     connectOrCreate?: profilesCreateOrConnectWithoutUserInput
@@ -6008,8 +7250,19 @@ export namespace Prisma {
     connect?: bank_accountsWhereUniqueInput | bank_accountsWhereUniqueInput[]
   }
 
+  export type notificationsUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<notificationsCreateWithoutUserInput, notificationsUncheckedCreateWithoutUserInput> | notificationsCreateWithoutUserInput[] | notificationsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: notificationsCreateOrConnectWithoutUserInput | notificationsCreateOrConnectWithoutUserInput[]
+    createMany?: notificationsCreateManyUserInputEnvelope
+    connect?: notificationsWhereUniqueInput | notificationsWhereUniqueInput[]
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
   }
 
   export type profilesUpdateOneWithoutUserNestedInput = {
@@ -6036,12 +7289,18 @@ export namespace Prisma {
     deleteMany?: bank_accountsScalarWhereInput | bank_accountsScalarWhereInput[]
   }
 
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
+  export type notificationsUpdateManyWithoutUserNestedInput = {
+    create?: XOR<notificationsCreateWithoutUserInput, notificationsUncheckedCreateWithoutUserInput> | notificationsCreateWithoutUserInput[] | notificationsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: notificationsCreateOrConnectWithoutUserInput | notificationsCreateOrConnectWithoutUserInput[]
+    upsert?: notificationsUpsertWithWhereUniqueWithoutUserInput | notificationsUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: notificationsCreateManyUserInputEnvelope
+    set?: notificationsWhereUniqueInput | notificationsWhereUniqueInput[]
+    disconnect?: notificationsWhereUniqueInput | notificationsWhereUniqueInput[]
+    delete?: notificationsWhereUniqueInput | notificationsWhereUniqueInput[]
+    connect?: notificationsWhereUniqueInput | notificationsWhereUniqueInput[]
+    update?: notificationsUpdateWithWhereUniqueWithoutUserInput | notificationsUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: notificationsUpdateManyWithWhereWithoutUserInput | notificationsUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: notificationsScalarWhereInput | notificationsScalarWhereInput[]
   }
 
   export type profilesUncheckedUpdateOneWithoutUserNestedInput = {
@@ -6066,6 +7325,20 @@ export namespace Prisma {
     update?: bank_accountsUpdateWithWhereUniqueWithoutUserInput | bank_accountsUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: bank_accountsUpdateManyWithWhereWithoutUserInput | bank_accountsUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: bank_accountsScalarWhereInput | bank_accountsScalarWhereInput[]
+  }
+
+  export type notificationsUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<notificationsCreateWithoutUserInput, notificationsUncheckedCreateWithoutUserInput> | notificationsCreateWithoutUserInput[] | notificationsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: notificationsCreateOrConnectWithoutUserInput | notificationsCreateOrConnectWithoutUserInput[]
+    upsert?: notificationsUpsertWithWhereUniqueWithoutUserInput | notificationsUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: notificationsCreateManyUserInputEnvelope
+    set?: notificationsWhereUniqueInput | notificationsWhereUniqueInput[]
+    disconnect?: notificationsWhereUniqueInput | notificationsWhereUniqueInput[]
+    delete?: notificationsWhereUniqueInput | notificationsWhereUniqueInput[]
+    connect?: notificationsWhereUniqueInput | notificationsWhereUniqueInput[]
+    update?: notificationsUpdateWithWhereUniqueWithoutUserInput | notificationsUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: notificationsUpdateManyWithWhereWithoutUserInput | notificationsUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: notificationsScalarWhereInput | notificationsScalarWhereInput[]
   }
 
   export type usersCreateNestedOneWithoutProfileInput = {
@@ -6216,15 +7489,22 @@ export namespace Prisma {
     update?: XOR<XOR<bank_accountsUpdateToOneWithWhereWithoutTransactions_toInput, bank_accountsUpdateWithoutTransactions_toInput>, bank_accountsUncheckedUpdateWithoutTransactions_toInput>
   }
 
-  export type NestedIntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
+  export type usersCreateNestedOneWithoutNotificationsInput = {
+    create?: XOR<usersCreateWithoutNotificationsInput, usersUncheckedCreateWithoutNotificationsInput>
+    connectOrCreate?: usersCreateOrConnectWithoutNotificationsInput
+    connect?: usersWhereUniqueInput
+  }
+
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
+  }
+
+  export type usersUpdateOneRequiredWithoutNotificationsNestedInput = {
+    create?: XOR<usersCreateWithoutNotificationsInput, usersUncheckedCreateWithoutNotificationsInput>
+    connectOrCreate?: usersCreateOrConnectWithoutNotificationsInput
+    upsert?: usersUpsertWithoutNotificationsInput
+    connect?: usersWhereUniqueInput
+    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutNotificationsInput, usersUpdateWithoutNotificationsInput>, usersUncheckedUpdateWithoutNotificationsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -6241,31 +7521,18 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
-
-  export type NestedFloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
@@ -6285,6 +7552,56 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
+  export type NestedIntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
   export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel>
     in?: number[] | ListFloatFieldRefInput<$PrismaModel>
@@ -6301,14 +7618,40 @@ export namespace Prisma {
     _max?: NestedFloatFilter<$PrismaModel>
   }
 
+  export type NestedDateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
   export type profilesCreateWithoutUserInput = {
+    id?: string
     identity_type: string
     identity_number: string
     address: string
   }
 
   export type profilesUncheckedCreateWithoutUserInput = {
-    id?: number
+    id?: string
     identity_type: string
     identity_number: string
     address: string
@@ -6320,6 +7663,7 @@ export namespace Prisma {
   }
 
   export type bank_accountsCreateWithoutUserInput = {
+    id?: string
     bank_name: string
     bank_account_number: string
     balance: number
@@ -6328,7 +7672,7 @@ export namespace Prisma {
   }
 
   export type bank_accountsUncheckedCreateWithoutUserInput = {
-    id?: number
+    id?: string
     bank_name: string
     bank_account_number: string
     balance: number
@@ -6346,6 +7690,32 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type notificationsCreateWithoutUserInput = {
+    id?: string
+    message: string
+    status: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type notificationsUncheckedCreateWithoutUserInput = {
+    id?: string
+    message: string
+    status: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type notificationsCreateOrConnectWithoutUserInput = {
+    where: notificationsWhereUniqueInput
+    create: XOR<notificationsCreateWithoutUserInput, notificationsUncheckedCreateWithoutUserInput>
+  }
+
+  export type notificationsCreateManyUserInputEnvelope = {
+    data: notificationsCreateManyUserInput | notificationsCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type profilesUpsertWithoutUserInput = {
     update: XOR<profilesUpdateWithoutUserInput, profilesUncheckedUpdateWithoutUserInput>
     create: XOR<profilesCreateWithoutUserInput, profilesUncheckedCreateWithoutUserInput>
@@ -6358,13 +7728,14 @@ export namespace Prisma {
   }
 
   export type profilesUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
     identity_type?: StringFieldUpdateOperationsInput | string
     identity_number?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
   }
 
   export type profilesUncheckedUpdateWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     identity_type?: StringFieldUpdateOperationsInput | string
     identity_number?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
@@ -6390,26 +7761,63 @@ export namespace Prisma {
     AND?: bank_accountsScalarWhereInput | bank_accountsScalarWhereInput[]
     OR?: bank_accountsScalarWhereInput[]
     NOT?: bank_accountsScalarWhereInput | bank_accountsScalarWhereInput[]
-    id?: IntFilter<"bank_accounts"> | number
-    user_id?: IntFilter<"bank_accounts"> | number
+    id?: StringFilter<"bank_accounts"> | string
+    user_id?: StringFilter<"bank_accounts"> | string
     bank_name?: StringFilter<"bank_accounts"> | string
     bank_account_number?: StringFilter<"bank_accounts"> | string
     balance?: FloatFilter<"bank_accounts"> | number
   }
 
+  export type notificationsUpsertWithWhereUniqueWithoutUserInput = {
+    where: notificationsWhereUniqueInput
+    update: XOR<notificationsUpdateWithoutUserInput, notificationsUncheckedUpdateWithoutUserInput>
+    create: XOR<notificationsCreateWithoutUserInput, notificationsUncheckedCreateWithoutUserInput>
+  }
+
+  export type notificationsUpdateWithWhereUniqueWithoutUserInput = {
+    where: notificationsWhereUniqueInput
+    data: XOR<notificationsUpdateWithoutUserInput, notificationsUncheckedUpdateWithoutUserInput>
+  }
+
+  export type notificationsUpdateManyWithWhereWithoutUserInput = {
+    where: notificationsScalarWhereInput
+    data: XOR<notificationsUpdateManyMutationInput, notificationsUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type notificationsScalarWhereInput = {
+    AND?: notificationsScalarWhereInput | notificationsScalarWhereInput[]
+    OR?: notificationsScalarWhereInput[]
+    NOT?: notificationsScalarWhereInput | notificationsScalarWhereInput[]
+    id?: StringFilter<"notifications"> | string
+    user_id?: StringFilter<"notifications"> | string
+    message?: StringFilter<"notifications"> | string
+    status?: StringFilter<"notifications"> | string
+    createdAt?: DateTimeFilter<"notifications"> | Date | string
+    updatedAt?: DateTimeFilter<"notifications"> | Date | string
+  }
+
   export type usersCreateWithoutProfileInput = {
+    id?: string
     name: string
     email: string
     password: string
+    otp?: string | null
+    socket_id?: string | null
+    user_agent?: string | null
     accounts?: bank_accountsCreateNestedManyWithoutUserInput
+    notifications?: notificationsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutProfileInput = {
-    id?: number
+    id?: string
     name: string
     email: string
     password: string
+    otp?: string | null
+    socket_id?: string | null
+    user_agent?: string | null
     accounts?: bank_accountsUncheckedCreateNestedManyWithoutUserInput
+    notifications?: notificationsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutProfileInput = {
@@ -6429,33 +7837,51 @@ export namespace Prisma {
   }
 
   export type usersUpdateWithoutProfileInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    socket_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_agent?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: bank_accountsUpdateManyWithoutUserNestedInput
+    notifications?: notificationsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutProfileInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    socket_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_agent?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: bank_accountsUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: notificationsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type usersCreateWithoutAccountsInput = {
+    id?: string
     name: string
     email: string
     password: string
+    otp?: string | null
+    socket_id?: string | null
+    user_agent?: string | null
     profile?: profilesCreateNestedOneWithoutUserInput
+    notifications?: notificationsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutAccountsInput = {
-    id?: number
+    id?: string
     name: string
     email: string
     password: string
+    otp?: string | null
+    socket_id?: string | null
+    user_agent?: string | null
     profile?: profilesUncheckedCreateNestedOneWithoutUserInput
+    notifications?: notificationsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutAccountsInput = {
@@ -6464,13 +7890,14 @@ export namespace Prisma {
   }
 
   export type transactionsCreateWithoutSource_accountInput = {
+    id?: string
     amount: number
     destination_account: bank_accountsCreateNestedOneWithoutTransactions_toInput
   }
 
   export type transactionsUncheckedCreateWithoutSource_accountInput = {
-    id?: number
-    destination_account_id: number
+    id?: string
+    destination_account_id: string
     amount: number
   }
 
@@ -6485,13 +7912,14 @@ export namespace Prisma {
   }
 
   export type transactionsCreateWithoutDestination_accountInput = {
+    id?: string
     amount: number
     source_account: bank_accountsCreateNestedOneWithoutTransactions_fromInput
   }
 
   export type transactionsUncheckedCreateWithoutDestination_accountInput = {
-    id?: number
-    source_account_id: number
+    id?: string
+    source_account_id: string
     amount: number
   }
 
@@ -6517,18 +7945,27 @@ export namespace Prisma {
   }
 
   export type usersUpdateWithoutAccountsInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    socket_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_agent?: NullableStringFieldUpdateOperationsInput | string | null
     profile?: profilesUpdateOneWithoutUserNestedInput
+    notifications?: notificationsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutAccountsInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    socket_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_agent?: NullableStringFieldUpdateOperationsInput | string | null
     profile?: profilesUncheckedUpdateOneWithoutUserNestedInput
+    notifications?: notificationsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type transactionsUpsertWithWhereUniqueWithoutSource_accountInput = {
@@ -6551,9 +7988,9 @@ export namespace Prisma {
     AND?: transactionsScalarWhereInput | transactionsScalarWhereInput[]
     OR?: transactionsScalarWhereInput[]
     NOT?: transactionsScalarWhereInput | transactionsScalarWhereInput[]
-    id?: IntFilter<"transactions"> | number
-    source_account_id?: IntFilter<"transactions"> | number
-    destination_account_id?: IntFilter<"transactions"> | number
+    id?: StringFilter<"transactions"> | string
+    source_account_id?: StringFilter<"transactions"> | string
+    destination_account_id?: StringFilter<"transactions"> | string
     amount?: FloatFilter<"transactions"> | number
   }
 
@@ -6574,6 +8011,7 @@ export namespace Prisma {
   }
 
   export type bank_accountsCreateWithoutTransactions_fromInput = {
+    id?: string
     bank_name: string
     bank_account_number: string
     balance: number
@@ -6582,8 +8020,8 @@ export namespace Prisma {
   }
 
   export type bank_accountsUncheckedCreateWithoutTransactions_fromInput = {
-    id?: number
-    user_id: number
+    id?: string
+    user_id: string
     bank_name: string
     bank_account_number: string
     balance: number
@@ -6596,6 +8034,7 @@ export namespace Prisma {
   }
 
   export type bank_accountsCreateWithoutTransactions_toInput = {
+    id?: string
     bank_name: string
     bank_account_number: string
     balance: number
@@ -6604,8 +8043,8 @@ export namespace Prisma {
   }
 
   export type bank_accountsUncheckedCreateWithoutTransactions_toInput = {
-    id?: number
-    user_id: number
+    id?: string
+    user_id: string
     bank_name: string
     bank_account_number: string
     balance: number
@@ -6629,6 +8068,7 @@ export namespace Prisma {
   }
 
   export type bank_accountsUpdateWithoutTransactions_fromInput = {
+    id?: StringFieldUpdateOperationsInput | string
     bank_name?: StringFieldUpdateOperationsInput | string
     bank_account_number?: StringFieldUpdateOperationsInput | string
     balance?: FloatFieldUpdateOperationsInput | number
@@ -6637,8 +8077,8 @@ export namespace Prisma {
   }
 
   export type bank_accountsUncheckedUpdateWithoutTransactions_fromInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    user_id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
     bank_name?: StringFieldUpdateOperationsInput | string
     bank_account_number?: StringFieldUpdateOperationsInput | string
     balance?: FloatFieldUpdateOperationsInput | number
@@ -6657,6 +8097,7 @@ export namespace Prisma {
   }
 
   export type bank_accountsUpdateWithoutTransactions_toInput = {
+    id?: StringFieldUpdateOperationsInput | string
     bank_name?: StringFieldUpdateOperationsInput | string
     bank_account_number?: StringFieldUpdateOperationsInput | string
     balance?: FloatFieldUpdateOperationsInput | number
@@ -6665,22 +8106,95 @@ export namespace Prisma {
   }
 
   export type bank_accountsUncheckedUpdateWithoutTransactions_toInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    user_id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
     bank_name?: StringFieldUpdateOperationsInput | string
     bank_account_number?: StringFieldUpdateOperationsInput | string
     balance?: FloatFieldUpdateOperationsInput | number
     transactions_from?: transactionsUncheckedUpdateManyWithoutSource_accountNestedInput
   }
 
+  export type usersCreateWithoutNotificationsInput = {
+    id?: string
+    name: string
+    email: string
+    password: string
+    otp?: string | null
+    socket_id?: string | null
+    user_agent?: string | null
+    profile?: profilesCreateNestedOneWithoutUserInput
+    accounts?: bank_accountsCreateNestedManyWithoutUserInput
+  }
+
+  export type usersUncheckedCreateWithoutNotificationsInput = {
+    id?: string
+    name: string
+    email: string
+    password: string
+    otp?: string | null
+    socket_id?: string | null
+    user_agent?: string | null
+    profile?: profilesUncheckedCreateNestedOneWithoutUserInput
+    accounts?: bank_accountsUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type usersCreateOrConnectWithoutNotificationsInput = {
+    where: usersWhereUniqueInput
+    create: XOR<usersCreateWithoutNotificationsInput, usersUncheckedCreateWithoutNotificationsInput>
+  }
+
+  export type usersUpsertWithoutNotificationsInput = {
+    update: XOR<usersUpdateWithoutNotificationsInput, usersUncheckedUpdateWithoutNotificationsInput>
+    create: XOR<usersCreateWithoutNotificationsInput, usersUncheckedCreateWithoutNotificationsInput>
+    where?: usersWhereInput
+  }
+
+  export type usersUpdateToOneWithWhereWithoutNotificationsInput = {
+    where?: usersWhereInput
+    data: XOR<usersUpdateWithoutNotificationsInput, usersUncheckedUpdateWithoutNotificationsInput>
+  }
+
+  export type usersUpdateWithoutNotificationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    socket_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_agent?: NullableStringFieldUpdateOperationsInput | string | null
+    profile?: profilesUpdateOneWithoutUserNestedInput
+    accounts?: bank_accountsUpdateManyWithoutUserNestedInput
+  }
+
+  export type usersUncheckedUpdateWithoutNotificationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    socket_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_agent?: NullableStringFieldUpdateOperationsInput | string | null
+    profile?: profilesUncheckedUpdateOneWithoutUserNestedInput
+    accounts?: bank_accountsUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type bank_accountsCreateManyUserInput = {
-    id?: number
+    id?: string
     bank_name: string
     bank_account_number: string
     balance: number
   }
 
+  export type notificationsCreateManyUserInput = {
+    id?: string
+    message: string
+    status: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type bank_accountsUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
     bank_name?: StringFieldUpdateOperationsInput | string
     bank_account_number?: StringFieldUpdateOperationsInput | string
     balance?: FloatFieldUpdateOperationsInput | number
@@ -6689,7 +8203,7 @@ export namespace Prisma {
   }
 
   export type bank_accountsUncheckedUpdateWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     bank_name?: StringFieldUpdateOperationsInput | string
     bank_account_number?: StringFieldUpdateOperationsInput | string
     balance?: FloatFieldUpdateOperationsInput | number
@@ -6698,55 +8212,81 @@ export namespace Prisma {
   }
 
   export type bank_accountsUncheckedUpdateManyWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     bank_name?: StringFieldUpdateOperationsInput | string
     bank_account_number?: StringFieldUpdateOperationsInput | string
     balance?: FloatFieldUpdateOperationsInput | number
   }
 
+  export type notificationsUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type notificationsUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type notificationsUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type transactionsCreateManySource_accountInput = {
-    id?: number
-    destination_account_id: number
+    id?: string
+    destination_account_id: string
     amount: number
   }
 
   export type transactionsCreateManyDestination_accountInput = {
-    id?: number
-    source_account_id: number
+    id?: string
+    source_account_id: string
     amount: number
   }
 
   export type transactionsUpdateWithoutSource_accountInput = {
+    id?: StringFieldUpdateOperationsInput | string
     amount?: FloatFieldUpdateOperationsInput | number
     destination_account?: bank_accountsUpdateOneRequiredWithoutTransactions_toNestedInput
   }
 
   export type transactionsUncheckedUpdateWithoutSource_accountInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    destination_account_id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    destination_account_id?: StringFieldUpdateOperationsInput | string
     amount?: FloatFieldUpdateOperationsInput | number
   }
 
   export type transactionsUncheckedUpdateManyWithoutSource_accountInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    destination_account_id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    destination_account_id?: StringFieldUpdateOperationsInput | string
     amount?: FloatFieldUpdateOperationsInput | number
   }
 
   export type transactionsUpdateWithoutDestination_accountInput = {
+    id?: StringFieldUpdateOperationsInput | string
     amount?: FloatFieldUpdateOperationsInput | number
     source_account?: bank_accountsUpdateOneRequiredWithoutTransactions_fromNestedInput
   }
 
   export type transactionsUncheckedUpdateWithoutDestination_accountInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    source_account_id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    source_account_id?: StringFieldUpdateOperationsInput | string
     amount?: FloatFieldUpdateOperationsInput | number
   }
 
   export type transactionsUncheckedUpdateManyWithoutDestination_accountInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    source_account_id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    source_account_id?: StringFieldUpdateOperationsInput | string
     amount?: FloatFieldUpdateOperationsInput | number
   }
 
@@ -6779,6 +8319,10 @@ export namespace Prisma {
      * @deprecated Use transactionsDefaultArgs instead
      */
     export type transactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = transactionsDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use notificationsDefaultArgs instead
+     */
+    export type notificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = notificationsDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

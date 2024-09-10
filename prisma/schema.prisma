@@ -9,27 +9,31 @@ datasource db {
 }
 
 model users {
-  id       Int            @id @default(autoincrement())
+  id       String   @id @default(cuid())
   name     String
   email    String         @unique
   password String
+  otp       String?
+  socket_id String?
+  user_agent String?
   profile  profiles?
   accounts bank_accounts[]
+  notifications notifications[]
 }
 
 model profiles {
-  id              Int            @id @default(autoincrement())
+  id              String   @id @default(cuid())
   user            users           @relation(fields: [user_id], references: [id])
-  user_id         Int            @unique
+  user_id         String            @unique
   identity_type   String
   identity_number String
   address         String
 }
 
 model bank_accounts {
-  id                  Int             @id @default(autoincrement())
+  id                  String   @id @default(cuid())
   user                users            @relation(fields: [user_id], references: [id])
-  user_id             Int
+  user_id             String
   bank_name           String
   bank_account_number String          @unique
   balance             Float
@@ -38,10 +42,20 @@ model bank_accounts {
 }
 
 model transactions {
-  id                     Int             @id @default(autoincrement())
+  id                     String   @id @default(cuid())
   source_account         bank_accounts    @relation("fromAccount", fields: [source_account_id], references: [id])
-  source_account_id      Int
+  source_account_id      String
   destination_account    bank_accounts    @relation("toAccount", fields: [destination_account_id], references: [id])
-  destination_account_id Int
+  destination_account_id String
   amount                 Float
+}
+
+model notifications {
+  id        String   @id @default(cuid())
+  user      users    @relation(fields: [user_id], references: [id])
+  user_id   String
+  message   String
+  status    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
